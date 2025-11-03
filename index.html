@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛠️ Calculadora de Construcción para Tuberías y Estructuras Metálicas</title>
+    <title>🛠️ Calculadora Técnica para Fabricación de Estructuras Metálicas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f4;
+            line-height: 1.6;
         }
         h1 {
             color: #333;
             text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
         }
         .section {
             background-color: #fff;
@@ -23,16 +31,36 @@
         }
         h2 {
             color: #555;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .description {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 13px;
         }
         label {
             display: block;
             margin: 10px 0 5px;
+            font-weight: bold;
         }
         input {
             padding: 8px;
             width: 100%;
             max-width: 200px;
             margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         button {
             padding: 10px 20px;
@@ -41,314 +69,556 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin: 5px;
         }
         button:hover {
             background-color: #0056b3;
         }
+        .result {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
         .formulas {
             display: none;
             margin-top: 20px;
-            padding: 10px;
-            background-color: #e9ecef;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
             border-radius: 4px;
+        }
+        .formula-item {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #fff;
+            border-left: 3px solid #007bff;
+        }
+        .formula-title {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .formula-desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
         }
     </style>
     <script src="../javascrit/codo.js"></script>
 </head>
 <body>
-    <h1>🛠️ Calculadora de Construcción para Tuberías y Estructuras Metálicas</h1>
+    <h1>🛠️ Calculadora Técnica para Fabricación de Estructuras Metálicas</h1>
+    <div class="subtitle">
+        <strong>Herramienta especializada para cálculos de tubería y estructuras metálicas</strong><br>
+        Basada en algoritmos JSLI de National Instruments WebVI
+    </div>
+
+    <div class="warning">
+        <strong>⚠️ ADVERTENCIA TÉCNICA:</strong> Esta es una herramienta de apoyo técnico. Los resultados deben ser verificados por un ingeniero estructural antes de su uso en proyectos reales. No sustituye el criterio profesional ni los códigos de construcción locales.
+    </div>
 
     <div class="section" id="codo">
-        <h2>Cálculo de Codos</h2>
-        <p><strong>Aplicación:</strong> Fabricación precisa de curvas en tuberías</p>
-        <img src="../atribucion/dobles 2 90.png" alt="Codo" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="angulo">Ángulo (°):</label>
-        <input type="number" id="angulo" step="0.01" placeholder="ej: 90">
+        <h2>1. Cálculo de Codos (codoWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Fabricación precisa de curvas en tuberías mediante proceso de curvado con rodillos.<br>
+            <strong>Diagrama:</strong> Proceso de formación de codo con rodillos de curvado.
+        </div>
+        <div class="warning">
+            <strong>¡CRÍTICO!</strong> El parámetro "rodillo" representa el <strong>DIÁMETRO del rodillo</strong>, NO el radio.
+        </div>
+        <img src="../atribucion/dobles 2 90.png" alt="Proceso de curvado de tubo con rodillos" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="angulo">Ángulo del codo (0-180°):</label>
+        <input type="number" id="angulo" step="0.01" placeholder="ej: 90" min="0" max="180">
         <label for="tubo">Diámetro exterior del tubo (mm):</label>
         <input type="number" id="tubo" step="0.01" placeholder="ej: 50">
-        <label for="radio">Diámetro del rodillo (mm):</label>
+        <label for="radio">Diámetro del rodillo de curvado (mm) - ¡NO el radio!:</label>
         <input type="number" id="radio" step="0.01" placeholder="ej: 100">
-        <label for="factork">Factor K:</label>
-        <input type="number" id="factork" step="0.01" placeholder="ej: 0.4" value="0.4">
+        <label for="factork">Factor K de compensación (0.35-0.45 para acero):</label>
+        <input type="number" id="factork" step="0.01" placeholder="ej: 0.4" value="0.4" min="0.1" max="1.0">
         <label for="eje">Posición del eje (1=exterior, 0.5=centro, 0=interior):</label>
-        <input type="number" id="eje" step="0.01" placeholder="ej: 1" value="1">
-        <button onclick="calcularCodo()">Calcular</button>
-        <button onclick="toggleFormulas('formulasCodo')">Mostrar Fórmulas</button>
+        <input type="number" id="eje" step="0.01" placeholder="ej: 1" value="1" min="0" max="1">
+        <button onclick="calcularCodo()">Calcular Codo</button>
+        <button onclick="toggleFormulas('formulasCodo')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoCodo"></div>
         <div class="formulas" id="formulasCodo">
-            <h4>Fórmulas utilizadas:</h4>
-            <p><strong>Tangente</strong> = (radio + eje × tubo / 2) / tan(ángulo × π / 360)</p>
-            <p><strong>Desarrollo</strong> = (radio + tubo × factorK) × (90 - ángulo/2) × π / 180</p>
-            <p><strong>Descuento</strong> = tangente - desarrollo</p>
-            <p><strong>Biset</strong> = [(radio + eje × tubo / 2) / sin(ángulo × π / 360)] - (radio + eje × tubo / 2)</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Descuento</div>
+                <strong>Fórmula:</strong> tangente - desarrollo<br>
+                <div class="formula-desc">Material que debe restarse para obtener el corte preciso. Determina cuánto tubo debe cortarse para que el codo quede con las dimensiones correctas.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Desarrollo</div>
+                <strong>Fórmula:</strong> (radio + (tubo×factork)) × (90-angulo/2) × π/180<br>
+                <div class="formula-desc">Longitud de tubo necesaria para formar la curva deseada. Permite calcular la longitud de material a utilizar antes del curvado.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Tangente</div>
+                <strong>Fórmula:</strong> (radio + eje×tubo/2) / tan(ángulo × π / 360)<br>
+                <div class="formula-desc">Distancia de proyección desde el inicio hasta el final del codo. Determina la proyección del codo para su integración en estructuras.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Biset</div>
+                <strong>Fórmula:</strong> ((radio + eje×tubo/2) / sin(ángulo × π / 360)) - (radio + eje×tubo/2)<br>
+                <div class="formula-desc">Ángulo de corte necesario para la unión del codo. Define el ángulo de bisel para soldaduras perfectas.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="eje">
-        <h2>Alineación de Ejes</h2>
-        <p><strong>Aplicación:</strong> Ajuste preciso de ejes en estructuras metálicas</p>
-        <label for="entrada0">Entrada - Longitud:</label>
-        <input type="number" id="entrada0" step="0.01">
-        <label for="entrada1">Entrada - Eje:</label>
-        <input type="number" id="entrada1" step="0.01">
-        <label for="salida0">Salida - Longitud:</label>
-        <input type="number" id="salida0" step="0.01">
-        <label for="salida1">Salida - Eje:</label>
-        <input type="number" id="salida1" step="0.01">
-        <button onclick="calcularEje()">Calcular</button>
+        <h2>2. Alineación de Ejes (ejeWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Ajuste preciso de ejes en estructuras metálicas para alineación dimensional.
+        </div>
+        <label for="entrada0">Entrada - Longitud (mm):</label>
+        <input type="number" id="entrada0" step="0.01" placeholder="ej: 100">
+        <label for="entrada1">Entrada - Eje (factor):</label>
+        <input type="number" id="entrada1" step="0.01" placeholder="ej: 0.5">
+        <label for="salida0">Salida - Longitud (mm):</label>
+        <input type="number" id="salida0" step="0.01" placeholder="ej: 150">
+        <label for="salida1">Salida - Eje (factor):</label>
+        <input type="number" id="salida1" step="0.01" placeholder="ej: 0.8">
+        <button onclick="calcularEje()">Calcular Alineación</button>
+        <button onclick="toggleFormulas('formulasEje')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoEje"></div>
-        <button onclick="toggleFormulas('formulasEje')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasEje">
-            <p><strong>Resu1</strong> = entrada[0] + salida[0] × (salida[1] - entrada[1])</p>
-            <p><strong>Resu2</strong> = entrada[0] + salida[0] × (salida[1] - entrada[1]) / 2</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Resultado 1</div>
+                <strong>Fórmula:</strong> entrada[0] + salida[0] × (salida[1] - entrada[1])<br>
+                <div class="formula-desc">Primer valor de ajuste para alineación dimensional en estructuras metálicas.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Resultado 2</div>
+                <strong>Fórmula:</strong> entrada[0] + salida[0] × (salida[1] - entrada[1]) / 2<br>
+                <div class="formula-desc">Segundo valor de ajuste para alineación dimensional, considerando factor de corrección.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="contravuelco">
-        <h2>Contravuelcos</h2>
-        <p><strong>Aplicación:</strong> Cálculo de dimensiones para estructuras en V invertida</p>
+        <h2>3. Contravuelcos (contravuelcoWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Cálculo de dimensiones para estructuras en V invertida (contravuelcos).<br>
+            <strong>Diagrama:</strong> Estructura en V invertida con marcas de centro y pendiente.
+        </div>
         <img src="../atribucion/controvul.png" alt="Contravuelco" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloContra">Ángulo (°):</label>
-        <input type="number" id="anguloContra" step="0.01">
-        <label for="marcacentro">Marca Centro:</label>
-        <input type="number" id="marcacentro" step="0.01">
-        <label for="rodilloContra">Rodillo:</label>
-        <input type="number" id="rodilloContra" step="0.01">
-        <label for="largoContra">Largo:</label>
-        <input type="number" id="largoContra" step="0.01">
-        <label for="alturaContra">Altura:</label>
-        <input type="number" id="alturaContra" step="0.01">
-        <label for="tuboContra">Tubo:</label>
-        <input type="number" id="tuboContra" step="0.01">
-        <label for="ejein">Eje In:</label>
-        <input type="number" id="ejein" step="0.01">
-        <button onclick="calcularContravuelco()">Calcular</button>
+        <label for="anguloContra">Ángulo principal de la estructura (°):</label>
+        <input type="number" id="anguloContra" step="0.01" placeholder="ej: 120">
+        <label for="marcacentro">Marca centro (punto de referencia central, mm):</label>
+        <input type="number" id="marcacentro" step="0.01" placeholder="ej: 200">
+        <label for="rodilloContra">Diámetro del rodillo de curvado (mm):</label>
+        <input type="number" id="rodilloContra" step="0.01" placeholder="ej: 80">
+        <label for="largoContra">Longitud horizontal del segmento (mm):</label>
+        <input type="number" id="largoContra" step="0.01" placeholder="ej: 300">
+        <label for="alturaContra">Altura vertical total (mm):</label>
+        <input type="number" id="alturaContra" step="0.01" placeholder="ej: 150">
+        <label for="tuboContra">Diámetro del tubo (mm):</label>
+        <input type="number" id="tuboContra" step="0.01" placeholder="ej: 40">
+        <label for="ejein">Posición del eje de curvatura (factor):</label>
+        <input type="number" id="ejein" step="0.01" placeholder="ej: 1" value="1">
+        <button onclick="calcularContravuelco()">Calcular Contravuelco</button>
+        <button onclick="toggleFormulas('formulasContravuelco')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoContravuelco"></div>
-        <button onclick="toggleFormulas('formulasContravuelco')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasContravuelco">
-            <p><strong>Centro</strong> = marca centro + 2 × descuento[0]</p>
-            <p><strong>Lado</strong> = √(largo² + altura²)</p>
-            <p><strong>Lado pendiente</strong> = lado / cos((ángulo - 90) × π / 180)</p>
-            <p><strong>Lado centro</strong> = lado × tan((ángulo - 90) × π / 180)</p>
-            <p><strong>Ancho</strong> = (eje in - 1) × tubo + centro + 2 × lado × tan((ángulo - 90) × π / 180)</p>
-            <p><strong>Ángulo patas</strong> = 90 + arcsin(altura / lado pendiente) × 180 / π</p>
-            <p><strong>Marca pendiente</strong> = lado pendiente - descuento[0] - descuento1[0]</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Ancho total</div>
+                <strong>Fórmula:</strong> (ejein-1)×tubo + centro + 2×lado×tan((angulo-90)×π/180)<br>
+                <div class="formula-desc">Ancho final de la estructura para su integración. Determina el ancho total de la estructura en V invertida.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Ángulo de patas</div>
+                <strong>Fórmula:</strong> 90 + arcsin(altura/ladopendiente)×180/π<br>
+                <div class="formula-desc">Ángulo de las patas respecto a la vertical. Define la inclinación de las patas para el diseño estructural.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Lado pendiente</div>
+                <strong>Fórmula:</strong> lado / cos((angulo-90)×π/180)<br>
+                <div class="formula-desc">Longitud de la parte inclinada. Determina la longitud real del tubo para la parte inclinada.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Lado centro</div>
+                <strong>Fórmula:</strong> lado × tan((angulo-90)×π/180)<br>
+                <div class="formula-desc">Distancia desde el centro al punto de curvatura. Ayuda a localizar el punto de curvatura central.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca pendiente</div>
+                <strong>Fórmula:</strong> ladopendiente - descuento[0] - descuento1[0]<br>
+                <div class="formula-desc">Marca de corte para la parte inclinada. Define el punto de corte para la parte pendiente de la estructura.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="angulo">
-        <h2>Ángulo entre Vectores</h2>
-        <p><strong>Aplicación:</strong> Cálculo del ángulo entre dos vectores en el espacio</p>
-        <label for="vec1x">Vector 1 - X:</label>
-        <input type="number" id="vec1x" step="0.01">
-        <label for="vec1y">Vector 1 - Y:</label>
-        <input type="number" id="vec1y" step="0.01">
-        <label for="vec1z">Vector 1 - Z:</label>
-        <input type="number" id="vec1z" step="0.01">
-        <label for="vec2x">Vector 2 - X:</label>
-        <input type="number" id="vec2x" step="0.01">
-        <label for="vec2y">Vector 2 - Y:</label>
-        <input type="number" id="vec2y" step="0.01">
-        <label for="vec2z">Vector 2 - Z:</label>
-        <input type="number" id="vec2z" step="0.01">
-        <button onclick="calcularAngulo()">Calcular</button>
-        <button onclick="toggleFormulas('formulasAngulo')">Mostrar Fórmulas</button>
+        <h2>4. Ángulo entre Vectores (anguloWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Cálculo del ángulo entre dos vectores en el espacio tridimensional.<br>
+            <strong>Diagrama:</strong> Dos vectores con origen común formando un ángulo.
+        </div>
+        <label for="vec1x">Vector 1 - Componente X:</label>
+        <input type="number" id="vec1x" step="0.01" placeholder="ej: 1.0">
+        <label for="vec1y">Vector 1 - Componente Y:</label>
+        <input type="number" id="vec1y" step="0.01" placeholder="ej: 0.0">
+        <label for="vec1z">Vector 1 - Componente Z:</label>
+        <input type="number" id="vec1z" step="0.01" placeholder="ej: 0.0">
+        <label for="vec2x">Vector 2 - Componente X:</label>
+        <input type="number" id="vec2x" step="0.01" placeholder="ej: 0.0">
+        <label for="vec2y">Vector 2 - Componente Y:</label>
+        <input type="number" id="vec2y" step="0.01" placeholder="ej: 1.0">
+        <label for="vec2z">Vector 2 - Componente Z:</label>
+        <input type="number" id="vec2z" step="0.01" placeholder="ej: 0.0">
+        <button onclick="calcularAngulo()">Calcular Ángulo</button>
+        <button onclick="toggleFormulas('formulasAngulo')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoAngulo"></div>
         <div class="formulas" id="formulasAngulo">
-            <h4>Fórmulas utilizadas:</h4>
-            <p><strong>Producto punto</strong> = Σ (vector1[i] × vector2[i])</p>
-            <p><strong>Módulo 1</strong> = √Σ vector1[i]²</p>
-            <p><strong>Módulo 2</strong> = √Σ vector2[i]²</p>
-            <p><strong>Ángulo</strong> = arccos(producto / (módulo1 × módulo2)) × 180/π</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Producto punto</div>
+                <strong>Fórmula:</strong> Σ (vector1[i] × vector2[i])<br>
+                <div class="formula-desc">Producto escalar entre los dos vectores. Esencial para determinar la relación angular entre vectores.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Módulo vector 1</div>
+                <strong>Fórmula:</strong> √Σ vector1[i]²<br>
+                <div class="formula-desc">Magnitud del primer vector. Determina la longitud del vector en el espacio tridimensional.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Módulo vector 2</div>
+                <strong>Fórmula:</strong> √Σ vector2[i]²<br>
+                <div class="formula-desc">Magnitud del segundo vector. Determina la longitud del vector en el espacio tridimensional.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Ángulo resultante</div>
+                <strong>Fórmula:</strong> arccos(producto / (módulo1 × módulo2)) × 180/π<br>
+                <div class="formula-desc">Ángulo en grados entre los dos vectores. Define la separación angular en el espacio tridimensional.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="baranda">
-        <h2>Barandas</h2>
-        <p><strong>Aplicación:</strong> Diseño de sistemas de protección</p>
+        <h2>5. Barandas (barandaWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Diseño de sistemas de protección y contención en estructuras metálicas.<br>
+            <strong>Diagrama:</strong> Estructura de baranda con postes verticales y pasamanos horizontales.
+        </div>
         <img src="../atribucion/baranda.png" alt="Baranda" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloBar">Ángulo (°):</label>
-        <input type="number" id="anguloBar" step="0.01">
+        <label for="anguloBar">Ángulo de inclinación de la estructura (°):</label>
+        <input type="number" id="anguloBar" step="0.01" placeholder="ej: 90">
         <label for="tuboBar">Diámetro exterior del tubo (mm):</label>
-        <input type="number" id="tuboBar" step="0.01">
-        <label for="rodilloBar">Diámetro del rodillo (mm):</label>
-        <input type="number" id="rodilloBar" step="0.01">
-        <label for="anchoBar">Ancho (mm):</label>
-        <input type="number" id="anchoBar" step="0.01">
-        <label for="alturaBar">Altura (mm):</label>
-        <input type="number" id="alturaBar" step="0.01">
-        <label for="factorkBar">Factor K:</label>
-        <input type="number" id="factorkBar" step="0.01" value="0.4">
-        <button onclick="calcularBaranda()">Calcular</button>
-        <button onclick="toggleFormulas('formulasBaranda')">Mostrar Fórmulas</button>
+        <input type="number" id="tuboBar" step="0.01" placeholder="ej: 40">
+        <label for="rodilloBar">Diámetro del rodillo de curvado (mm):</label>
+        <input type="number" id="rodilloBar" step="0.01" placeholder="ej: 80">
+        <label for="anchoBar">Ancho total de la baranda (mm):</label>
+        <input type="number" id="anchoBar" step="0.01" placeholder="ej: 1000">
+        <label for="alturaBar">Altura total de la baranda (mm):</label>
+        <input type="number" id="alturaBar" step="0.01" placeholder="ej: 900">
+        <label for="factorkBar">Factor K (compensación de curvado):</label>
+        <input type="number" id="factorkBar" step="0.01" value="0.4" placeholder="ej: 0.4">
+        <button onclick="calcularBaranda()">Calcular Baranda</button>
+        <button onclick="toggleFormulas('formulasBaranda')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoBaranda"></div>
         <div class="formulas" id="formulasBaranda">
-            <h4>Fórmulas utilizadas:</h4>
-            <p><strong>TuboH</strong> = tubo[0] × cos((ángulo-90) × π/180)</p>
-            <p><strong>TuboV</strong> = tubo[0] / tan(ángulo/2 × π/180)</p>
-            <p><strong>Alineado</strong> = altura[0] / cos((ángulo-90) × π/180)</p>
-            <p><strong>Marca AL</strong> = (alineado + tuboV × (tubo[1]-altura[1])/2) - descuento[0]</p>
-            <p><strong>Marca CT</strong> = (ancho[0] + tuboH × (tubo[1]-ancho[1])) - 2 × alturaEJE × tan((ángulo-90) × π/180) - 2 × descuento[0]</p>
-            <p><strong>Desarrollo</strong> = 2 × marcaAL + marcaCT</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Tubo horizontal</div>
+                <strong>Fórmula:</strong> tubo[0] × cos((ángulo-90) × π/180)<br>
+                <div class="formula-desc">Componente horizontal del tubo en la estructura inclinada. Determina el ancho efectivo del tubo.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Tubo vertical</div>
+                <strong>Fórmula:</strong> tubo[0] / tan(ángulo/2 × π/180)<br>
+                <div class="formula-desc">Componente vertical del tubo. Define la altura efectiva del tubo en la estructura.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Longitud alineada</div>
+                <strong>Fórmula:</strong> altura[0] / cos((ángulo-90) × π/180)<br>
+                <div class="formula-desc">Longitud total del tubo siguiendo la pendiente. Determina la longitud real del material.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca alineada</div>
+                <strong>Fórmula:</strong> (alineado + tuboV × (tubo[1]-altura[1])/2) - descuento[0]<br>
+                <div class="formula-desc">Marca de corte para el segmento alineado. Define el punto de corte preciso para el montaje.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca central</div>
+                <strong>Fórmula:</strong> (ancho[0] + tuboH × (tubo[1]-ancho[1])) - 2 × alturaEJE × tan((ángulo-90) × π/180) - 2 × descuento[0]<br>
+                <div class="formula-desc">Marca de corte para el segmento central. Determina el punto de corte para el centro de la baranda.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Desarrollo total</div>
+                <strong>Fórmula:</strong> 2 × marcaAL + marcaCT<br>
+                <div class="formula-desc">Longitud total de desarrollo del tubo. Define la cantidad total de material necesario.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="dosaguas">
-        <h2>Techos a Dos Aguas</h2>
-        <p><strong>Aplicación:</strong> Dimensionamiento de estructuras de cubierta</p>
+        <h2>6. Techos a Dos Aguas (dosaguasWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Dimensionamiento de estructuras de cubierta con pendiente doble.<br>
+            <strong>Diagrama:</strong> Techo con dos planos inclinados convergiendo en una cumbrera central.
+        </div>
         <img src="../atribucion/dos aguas.png" alt="Dos Aguas" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloDos">Ángulo (°):</label>
-        <input type="number" id="anguloDos" step="0.01">
+        <label for="anguloDos">Ángulo de pendiente de cada plano (°):</label>
+        <input type="number" id="anguloDos" step="0.01" placeholder="ej: 30">
         <label for="tuboDos">Diámetro exterior del tubo (mm):</label>
-        <input type="number" id="tuboDos" step="0.01">
-        <label for="rodilloDos">Diámetro del rodillo (mm):</label>
-        <input type="number" id="rodilloDos" step="0.01">
-        <label for="anchoDos">Ancho (mm):</label>
-        <input type="number" id="anchoDos" step="0.01">
-        <label for="factorkDos">Factor K:</label>
-        <input type="number" id="factorkDos" step="0.01" value="0.4">
-        <button onclick="calcularDosAguas()">Calcular</button>
-        <button onclick="toggleFormulas('formulasDosAguas')">Mostrar Fórmulas</button>
+        <input type="number" id="tuboDos" step="0.01" placeholder="ej: 40">
+        <label for="rodilloDos">Diámetro del rodillo de curvado (mm):</label>
+        <input type="number" id="rodilloDos" step="0.01" placeholder="ej: 80">
+        <label for="anchoDos">Ancho total del techo (mm):</label>
+        <input type="number" id="anchoDos" step="0.01" placeholder="ej: 6000">
+        <label for="factorkDos">Factor K (compensación de curvado):</label>
+        <input type="number" id="factorkDos" step="0.01" value="0.4" placeholder="ej: 0.4">
+        <button onclick="calcularDosAguas()">Calcular Dos Aguas</button>
+        <button onclick="toggleFormulas('formulasDosAguas')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoDosAguas"></div>
         <div class="formulas" id="formulasDosAguas">
-            <h4>Fórmulas utilizadas:</h4>
-            <p><strong>Anginferior</strong> = 180 - (ángulo/2)</p>
-            <p><strong>Apice</strong> = ancho[0] / (2 × tan(ángulo/2 × π/180)) - codo1[3]</p>
-            <p><strong>Lado</strong> = ancho[0] / (2 × sin(ángulo/2 × π/180))</p>
-            <p><strong>Marca lado</strong> = lado - (codo1[0] + codo2[0])</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Ángulo inferior</div>
+                <strong>Fórmula:</strong> 180 - (ángulo/2)<br>
+                <div class="formula-desc">Ángulo en la base del triángulo formado por cada plano inclinado. Define la geometría de la estructura.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Altura del ápice</div>
+                <strong>Fórmula:</strong> ancho[0] / (2 × tan(ángulo/2 × π/180)) - codo1[3]<br>
+                <div class="formula-desc">Altura desde la base hasta el punto más alto (cumbrera). Determina la elevación máxima de la estructura.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Longitud del lado</div>
+                <strong>Fórmula:</strong> ancho[0] / (2 × sin(ángulo/2 × π/180))<br>
+                <div class="formula-desc">Longitud de cada plano inclinado desde la cumbrera hasta la base. Define la longitud de las vigas.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca de corte lateral</div>
+                <strong>Fórmula:</strong> lado - (codo1[0] + codo2[0])<br>
+                <div class="formula-desc">Marca de corte para los extremos laterales del techo. Define los puntos de corte precisos para el montaje.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="productopunto">
-        <h2>Producto Punto</h2>
-        <label for="vec1px">Vector1 X:</label>
-        <input type="number" id="vec1px" step="0.01">
-        <label for="vec1py">Vector1 Y:</label>
-        <input type="number" id="vec1py" step="0.01">
-        <label for="vec1pz">Vector1 Z:</label>
-        <input type="number" id="vec1pz" step="0.01">
-        <label for="vec2px">Vector2 X:</label>
-        <input type="number" id="vec2px" step="0.01">
-        <label for="vec2py">Vector2 Y:</label>
-        <input type="number" id="vec2py" step="0.01">
-        <label for="vec2pz">Vector2 Z:</label>
-        <input type="number" id="vec2pz" step="0.01">
-        <button onclick="calcularProductoPunto()">Calcular</button>
+        <h2>7. Producto Punto (productopuntoWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Cálculo del producto escalar entre dos vectores tridimensionales.<br>
+            <strong>Diagrama:</strong> Dos vectores con origen común mostrando su producto punto.
+        </div>
+        <label for="vec1px">Vector 1 - Componente X:</label>
+        <input type="number" id="vec1px" step="0.01" placeholder="ej: 1.0">
+        <label for="vec1py">Vector 1 - Componente Y:</label>
+        <input type="number" id="vec1py" step="0.01" placeholder="ej: 2.0">
+        <label for="vec1pz">Vector 1 - Componente Z:</label>
+        <input type="number" id="vec1pz" step="0.01" placeholder="ej: 3.0">
+        <label for="vec2px">Vector 2 - Componente X:</label>
+        <input type="number" id="vec2px" step="0.01" placeholder="ej: 4.0">
+        <label for="vec2py">Vector 2 - Componente Y:</label>
+        <input type="number" id="vec2py" step="0.01" placeholder="ej: 5.0">
+        <label for="vec2pz">Vector 2 - Componente Z:</label>
+        <input type="number" id="vec2pz" step="0.01" placeholder="ej: 6.0">
+        <button onclick="calcularProductoPunto()">Calcular Producto Punto</button>
+        <button onclick="toggleFormulas('formulasProductoPunto')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoProductoPunto"></div>
-        <button onclick="toggleFormulas('formulasProductoPunto')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasProductoPunto">
-            <p>Producto punto = Σ (vector1[i] × vector2[i])</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Producto punto resultante</div>
+                <strong>Fórmula:</strong> Σ (vector1[i] × vector2[i])<br>
+                <div class="formula-desc">Producto escalar entre los dos vectores. Esencial para determinar la relación angular y proyección entre vectores en el espacio tridimensional.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="angulovector">
-        <h2>Ángulo Vector</h2>
-        <label for="vec1ax">Vector1 X:</label>
-        <input type="number" id="vec1ax" step="0.01">
-        <label for="vec1ay">Vector1 Y:</label>
-        <input type="number" id="vec1ay" step="0.01">
-        <label for="vec1az">Vector1 Z:</label>
-        <input type="number" id="vec1az" step="0.01">
-        <label for="vec2ax">Vector2 X:</label>
-        <input type="number" id="vec2ax" step="0.01">
-        <label for="vec2ay">Vector2 Y:</label>
-        <input type="number" id="vec2ay" step="0.01">
-        <label for="vec2az">Vector2 Z:</label>
-        <input type="number" id="vec2az" step="0.01">
-        <label for="vec3ax">Vector3 X:</label>
-        <input type="number" id="vec3ax" step="0.01">
-        <label for="vec3ay">Vector3 Y:</label>
-        <input type="number" id="vec3ay" step="0.01">
-        <label for="vec3az">Vector3 Z:</label>
-        <input type="number" id="vec3az" step="0.01">
-        <button onclick="calcularAnguloVector()">Calcular</button>
+        <h2>8. Ángulo Vector (angulovectorWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Cálculo del ángulo entre dos vectores ortogonales a un tercer vector.<br>
+            <strong>Diagrama:</strong> Tres vectores donde se calcula el ángulo entre las proyecciones ortogonales al tercer vector.
+        </div>
+        <label for="vec1ax">Vector 1 - Componente X:</label>
+        <input type="number" id="vec1ax" step="0.01" placeholder="ej: 1.0">
+        <label for="vec1ay">Vector 1 - Componente Y:</label>
+        <input type="number" id="vec1ay" step="0.01" placeholder="ej: 0.0">
+        <label for="vec1az">Vector 1 - Componente Z:</label>
+        <input type="number" id="vec1az" step="0.01" placeholder="ej: 0.0">
+        <label for="vec2ax">Vector 2 - Componente X:</label>
+        <input type="number" id="vec2ax" step="0.01" placeholder="ej: 0.0">
+        <label for="vec2ay">Vector 2 - Componente Y:</label>
+        <input type="number" id="vec2ay" step="0.01" placeholder="ej: 1.0">
+        <label for="vec2az">Vector 2 - Componente Z:</label>
+        <input type="number" id="vec2az" step="0.01" placeholder="ej: 0.0">
+        <label for="vec3ax">Vector de referencia - Componente X:</label>
+        <input type="number" id="vec3ax" step="0.01" placeholder="ej: 0.0">
+        <label for="vec3ay">Vector de referencia - Componente Y:</label>
+        <input type="number" id="vec3ay" step="0.01" placeholder="ej: 0.0">
+        <label for="vec3az">Vector de referencia - Componente Z:</label>
+        <input type="number" id="vec3az" step="0.01" placeholder="ej: 1.0">
+        <button onclick="calcularAnguloVector()">Calcular Ángulo Vector</button>
+        <button onclick="toggleFormulas('formulasAnguloVector')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoAnguloVector"></div>
-        <button onclick="toggleFormulas('formulasAnguloVector')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasAnguloVector">
-            <p>Calcula productos punto y ortogonales, luego ángulo entre ortogonales.</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Proceso de cálculo</div>
+                <strong>Descripción:</strong> Calcula productos punto y determina vectores ortogonales, luego calcula el ángulo entre las componentes ortogonales.<br>
+                <div class="formula-desc">Método avanzado para determinar ángulos en sistemas de coordenadas complejos. Útil en análisis estructural tridimensional.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="puntaangulor">
-        <h2>Punta Ángulo R</h2>
+        <h2>9. Punta Ángulo R (puntaangulorWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Diseño de elementos angulares con curvatura compleja para uniones reforzadas.<br>
+            <strong>Diagrama:</strong> Elemento angular con curvatura en R y compensaciones de material.
+        </div>
         <img src="../atribucion/piston rol.png" alt="Punta Ángulo R" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="diametroPun">Diámetro:</label>
-        <input type="number" id="diametroPun" step="0.01">
-        <label for="tuboPun">Tubo:</label>
-        <input type="number" id="tuboPun" step="0.01">
-        <label for="anguloPun">Ángulo:</label>
-        <input type="number" id="anguloPun" step="0.01">
-        <label for="alturaCentroPun">Altura Centro:</label>
-        <input type="number" id="alturaCentroPun" step="0.01">
-        <label for="factorkPun">Factor K:</label>
-        <input type="number" id="factorkPun" step="0.01">
-        <label for="sobraPun">Sobra:</label>
-        <input type="number" id="sobraPun" step="0.01">
-        <button onclick="calcularPuntaAngulor()">Calcular</button>
+        <label for="diametroPun">Diámetro del elemento curvo (mm):</label>
+        <input type="number" id="diametroPun" step="0.01" placeholder="ej: 100">
+        <label for="tuboPun">Diámetro exterior del tubo (mm):</label>
+        <input type="number" id="tuboPun" step="0.01" placeholder="ej: 40">
+        <label for="anguloPun">Ángulo de la punta (°):</label>
+        <input type="number" id="anguloPun" step="0.01" placeholder="ej: 90">
+        <label for="alturaCentroPun">Altura del centro de curvatura (mm):</label>
+        <input type="number" id="alturaCentroPun" step="0.01" placeholder="ej: 50">
+        <label for="factorkPun">Factor K (compensación de curvado):</label>
+        <input type="number" id="factorkPun" step="0.01" value="0.4" placeholder="ej: 0.4">
+        <label for="sobraPun">Longitud adicional de material (mm):</label>
+        <input type="number" id="sobraPun" step="0.01" placeholder="ej: 20">
+        <button onclick="calcularPuntaAngulor()">Calcular Punta Ángulo R</button>
+        <button onclick="toggleFormulas('formulasPuntaAngulor')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoPuntaAngulor"></div>
-        <button onclick="toggleFormulas('formulasPuntaAngulor')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasPuntaAngulor">
-            <p>Marca centro = (diámetro[0] + tubo[0] × (0 - diámetro[1]) + factor K × 2 × tubo[0]) × (180 - ángulo) × π / 360</p>
-            <p>Altura rest = altura centro[0] - (diámetro[0] + tubo[0] × (altura centro[1] - diámetro[1])) × sin((180 - ángulo) × π / (4 × 180))²</p>
-            <p>Ancho rest: Compleja fórmula trigonométrica para ancho restante.</p>
-            <p>Desarrollo = sobra + (diámetro[0] + tubo[0] × (1 - diámetro[1])) × (180 - ángulo) × π / 360 + 2 × altura rest / cos(ángulo × π / (2 × 180))</p>
-            <p>Marca recto = (desarrollo - marca centro) / 2</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Marca centro</div>
+                <strong>Fórmula:</strong> (diámetro[0] + tubo[0] × (0 - diámetro[1]) + factor K × 2 × tubo[0]) × (180 - ángulo) × π / 360<br>
+                <div class="formula-desc">Posición del centro de curvatura. Determina el punto de referencia para el curvado del elemento.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Altura restante</div>
+                <strong>Fórmula:</strong> altura centro[0] - (diámetro[0] + tubo[0] × (altura centro[1] - diámetro[1])) × sin((180 - ángulo) × π / (4 × 180))²<br>
+                <div class="formula-desc">Altura efectiva después del curvado. Calcula la dimensión vertical restante del elemento.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Ancho restante</div>
+                <strong>Descripción:</strong> Cálculo trigonométrico complejo para determinar el ancho efectivo.<br>
+                <div class="formula-desc">Ancho efectivo del elemento después del proceso de curvado. Considera las deformaciones del material.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Desarrollo total</div>
+                <strong>Fórmula:</strong> sobra + (diámetro[0] + tubo[0] × (1 - diámetro[1])) × (180 - ángulo) × π / 360 + 2 × altura rest / cos(ángulo × π / (2 × 180))<br>
+                <div class="formula-desc">Longitud total de desarrollo del material. Define la cantidad total de tubo necesario para la fabricación.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca recto</div>
+                <strong>Fórmula:</strong> (desarrollo - marca centro) / 2<br>
+                <div class="formula-desc">Marca de corte para el segmento recto. Determina el punto de corte preciso para el montaje final.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="pasamano">
-        <h2>Pasamanos</h2>
-        <p><strong>Aplicación:</strong> Diseño de sistemas de apoyo y seguridad</p>
+        <h2>10. Pasamanos (pasamanoWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Diseño de sistemas de apoyo y seguridad con múltiples ángulos de curvado.<br>
+            <strong>Diagrama:</strong> Estructura de pasamano con dos patas curvas y segmento horizontal central.
+        </div>
         <img src="../atribucion/pasamano.png" alt="Pasamano" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="rodilloPas">Diámetro del rodillo (mm):</label>
-        <input type="number" id="rodilloPas" step="0.01">
+        <label for="rodilloPas">Diámetro del rodillo de curvado (mm):</label>
+        <input type="number" id="rodilloPas" step="0.01" placeholder="ej: 80">
         <label for="tuboPas">Diámetro exterior del tubo (mm):</label>
-        <input type="number" id="tuboPas" step="0.01">
-        <label for="largoPas">Largo (mm):</label>
-        <input type="number" id="largoPas" step="0.01">
-        <label for="pata1Pas">Pata 1 (mm):</label>
-        <input type="number" id="pata1Pas" step="0.01">
-        <label for="angulo1Pas">Ángulo 1 (°):</label>
-        <input type="number" id="angulo1Pas" step="0.01">
-        <label for="pata2Pas">Pata 2 (mm):</label>
-        <input type="number" id="pata2Pas" step="0.01">
-        <label for="angulo2Pas">Ángulo 2 (°):</label>
-        <input type="number" id="angulo2Pas" step="0.01">
-        <label for="factorkPas">Factor K:</label>
-        <input type="number" id="factorkPas" step="0.01" value="0.4">
-        <button onclick="calcularPasamano()">Calcular</button>
+        <input type="number" id="tuboPas" step="0.01" placeholder="ej: 40">
+        <label for="largoPas">Longitud del segmento horizontal (mm):</label>
+        <input type="number" id="largoPas" step="0.01" placeholder="ej: 800">
+        <label for="pata1Pas">Longitud de la pata 1 (mm):</label>
+        <input type="number" id="pata1Pas" step="0.01" placeholder="ej: 600">
+        <label for="angulo1Pas">Ángulo de la pata 1 (°):</label>
+        <input type="number" id="angulo1Pas" step="0.01" placeholder="ej: 90">
+        <label for="pata2Pas">Longitud de la pata 2 (mm):</label>
+        <input type="number" id="pata2Pas" step="0.01" placeholder="ej: 600">
+        <label for="angulo2Pas">Ángulo de la pata 2 (°):</label>
+        <input type="number" id="angulo2Pas" step="0.01" placeholder="ej: 90">
+        <label for="factorkPas">Factor K (compensación de curvado):</label>
+        <input type="number" id="factorkPas" step="0.01" value="0.4" placeholder="ej: 0.4">
+        <button onclick="calcularPasamano()">Calcular Pasamano</button>
+        <button onclick="toggleFormulas('formulasPasamano')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoPasamano"></div>
-        <button onclick="toggleFormulas('formulasPasamano')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasPasamano">
-            <p><strong>TuboV1/V2</strong>: Similar a baranda.</p>
-            <p>Llama a <strong>codoWithJSLI</strong> dos veces.</p>
-            <p><strong>Marca pata1/2</strong>: Cálculos de marcas basados en patas y ángulos.</p>
-            <p><strong>Marca largo</strong>: Marca longitudinal.</p>
-            <p><strong>Desarrollo</strong>: Suma de marcas.</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Componentes verticales</div>
+                <strong>Descripción:</strong> Cálculos similares a baranda para determinar componentes verticales del tubo.<br>
+                <div class="formula-desc">Define las componentes verticales de cada pata para el diseño estructural correcto.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Llamadas a función codo</div>
+                <strong>Descripción:</strong> Invoca codoWithJSLI dos veces para calcular cada curvatura.<br>
+                <div class="formula-desc">Utiliza la función de codo estándar para calcular las curvaturas de ambas patas de manera precisa.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marcas de patas</div>
+                <strong>Descripción:</strong> Cálculos de marcas basados en longitudes y ángulos de cada pata.<br>
+                <div class="formula-desc">Determina los puntos de corte precisos para cada pata del pasamano.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca longitudinal</div>
+                <strong>Descripción:</strong> Marca para el segmento horizontal central.<br>
+                <div class="formula-desc">Define el punto de corte para el segmento horizontal del pasamano.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Desarrollo total</div>
+                <strong>Descripción:</strong> Suma de todas las marcas para determinar el desarrollo completo.<br>
+                <div class="formula-desc">Calcula la longitud total de material necesario para fabricar el pasamano completo.</div>
+            </div>
         </div>
     </div>
 
     <div class="section" id="parchoque">
-        <h2>Parachoques</h2>
-        <p><strong>Aplicación:</strong> Cálculo para elementos de protección perimetral</p>
+        <h2>11. Parachoques (parchoqueWithJSLI)</h2>
+        <div class="description">
+            <strong>Aplicación:</strong> Diseño de elementos de protección perimetral para vehículos y estructuras.<br>
+            <strong>Diagrama:</strong> Elemento de protección con geometría similar a baranda pero optimizado para impacto.
+        </div>
         <img src="../atribucion/parchoque.png" alt="Parchoque" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloPar">Ángulo (°):</label>
-        <input type="number" id="anguloPar" step="0.01">
+        <label for="anguloPar">Ángulo de inclinación del parachoque (°):</label>
+        <input type="number" id="anguloPar" step="0.01" placeholder="ej: 90">
         <label for="tuboPar">Diámetro exterior del tubo (mm):</label>
-        <input type="number" id="tuboPar" step="0.01">
-        <label for="rodilloPar">Diámetro del rodillo (mm):</label>
-        <input type="number" id="rodilloPar" step="0.01">
-        <label for="anchoPar">Ancho (mm):</label>
-        <input type="number" id="anchoPar" step="0.01">
-        <label for="alturaPar">Altura (mm):</label>
-        <input type="number" id="alturaPar" step="0.01">
-        <label for="factorkPar">Factor K:</label>
-        <input type="number" id="factorkPar" step="0.01" value="0.4">
-        <button onclick="calcularParchoque()">Calcular</button>
+        <input type="number" id="tuboPar" step="0.01" placeholder="ej: 40">
+        <label for="rodilloPar">Diámetro del rodillo de curvado (mm):</label>
+        <input type="number" id="rodilloPar" step="0.01" placeholder="ej: 80">
+        <label for="anchoPar">Ancho total del parachoque (mm):</label>
+        <input type="number" id="anchoPar" step="0.01" placeholder="ej: 2000">
+        <label for="alturaPar">Altura total del parachoque (mm):</label>
+        <input type="number" id="alturaPar" step="0.01" placeholder="ej: 500">
+        <label for="factorkPar">Factor K (compensación de curvado):</label>
+        <input type="number" id="factorkPar" step="0.01" value="0.4" placeholder="ej: 0.4">
+        <button onclick="calcularParchoque()">Calcular Parchoque</button>
+        <button onclick="toggleFormulas('formulasParchoque')">Mostrar Análisis Técnico</button>
         <div class="result" id="resultadoParchoque"></div>
-        <button onclick="toggleFormulas('formulasParchoque')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasParchoque">
-            <p>Similar a baranda, con fórmulas equivalentes para desarrollo, marcas y descuento.</p>
+            <h4>📐 Análisis Técnico de Resultados:</h4>
+            <div class="formula-item">
+                <div class="formula-title">Desarrollo total</div>
+                <strong>Descripción:</strong> Longitud total de desarrollo del tubo para el parachoque.<br>
+                <div class="formula-desc">Determina la cantidad total de material tubular necesario para fabricar el elemento de protección.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca alineada</div>
+                <strong>Descripción:</strong> Marca de corte para el segmento inclinado del parachoque.<br>
+                <div class="formula-desc">Define el punto de corte preciso para el segmento inclinado que absorbe impactos.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Marca central</div>
+                <strong>Descripción:</strong> Marca de corte para el segmento central del parachoque.<br>
+                <div class="formula-desc">Determina el punto de corte para el centro del elemento de protección.</div>
+            </div>
+            <div class="formula-item">
+                <div class="formula-title">Descuento de material</div>
+                <strong>Descripción:</strong> Compensación por deformación del material durante el curvado.<br>
+                <div class="formula-desc">Ajuste técnico para compensar la elongación del material durante el proceso de curvado.</div>
+            </div>
         </div>
     </div>
 
