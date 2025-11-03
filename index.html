@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Construcción</title>
+    <title>🛠️ Calculadora de Construcción para Tuberías y Estructuras Metálicas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,56 +56,59 @@
     <script src="../javascrit/codo.js"></script>
 </head>
 <body>
-    <h1>Calculadora de Construcción</h1>
+    <h1>🛠️ Calculadora de Construcción para Tuberías y Estructuras Metálicas</h1>
 
     <div class="section" id="codo">
-        <h2>Codo</h2>
+        <h2>Cálculo de Codos</h2>
+        <p><strong>Aplicación:</strong> Fabricación precisa de curvas en tuberías</p>
         <img src="../atribucion/dobles 2 90.png" alt="Codo" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="angulo">Ángulo:</label>
-        <input type="number" id="angulo" step="0.01">
-        <label for="tubo">Tubo:</label>
-        <input type="number" id="tubo" step="0.01">
-        <label for="radio">Radio:</label>
-        <input type="number" id="radio" step="0.01">
+        <label for="angulo">Ángulo (°):</label>
+        <input type="number" id="angulo" step="0.01" placeholder="ej: 90">
+        <label for="tubo">Diámetro exterior del tubo (mm):</label>
+        <input type="number" id="tubo" step="0.01" placeholder="ej: 50">
+        <label for="radio">Diámetro del rodillo (mm):</label>
+        <input type="number" id="radio" step="0.01" placeholder="ej: 100">
         <label for="factork">Factor K:</label>
-        <input type="number" id="factork" step="0.01">
-        <label for="eje">Eje:</label>
-        <input type="number" id="eje" step="0.01">
+        <input type="number" id="factork" step="0.01" placeholder="ej: 0.4" value="0.4">
+        <label for="eje">Posición del eje (1=exterior, 0.5=centro, 0=interior):</label>
+        <input type="number" id="eje" step="0.01" placeholder="ej: 1" value="1">
         <button onclick="calcularCodo()">Calcular</button>
         <button onclick="toggleFormulas('formulasCodo')">Mostrar Fórmulas</button>
         <div class="result" id="resultadoCodo"></div>
         <div class="formulas" id="formulasCodo">
             <h4>Fórmulas utilizadas:</h4>
-            <p>Tangente = (radio + eje × tubo / 2) / tan(ángulo × π / 360)</p>
-            <p>Desarrollo = (radio + tubo × factorK) × (90 - ángulo/2) × π / 180</p>
-            <p>Descuento = tangente - desarrollo</p>
-            <p>Biset = [(radio + eje × tubo / 2) / sin(ángulo × π / 360)] - (radio + eje × tubo / 2)</p>
+            <p><strong>Tangente</strong> = (radio + eje × tubo / 2) / tan(ángulo × π / 360)</p>
+            <p><strong>Desarrollo</strong> = (radio + tubo × factorK) × (90 - ángulo/2) × π / 180</p>
+            <p><strong>Descuento</strong> = tangente - desarrollo</p>
+            <p><strong>Biset</strong> = [(radio + eje × tubo / 2) / sin(ángulo × π / 360)] - (radio + eje × tubo / 2)</p>
         </div>
     </div>
 
     <div class="section" id="eje">
-        <h2>Eje</h2>
-        <label for="entrada0">Entrada[0]:</label>
+        <h2>Alineación de Ejes</h2>
+        <p><strong>Aplicación:</strong> Ajuste preciso de ejes en estructuras metálicas</p>
+        <label for="entrada0">Entrada - Longitud:</label>
         <input type="number" id="entrada0" step="0.01">
-        <label for="entrada1">Entrada[1]:</label>
+        <label for="entrada1">Entrada - Eje:</label>
         <input type="number" id="entrada1" step="0.01">
-        <label for="salida0">Salida[0]:</label>
+        <label for="salida0">Salida - Longitud:</label>
         <input type="number" id="salida0" step="0.01">
-        <label for="salida1">Salida[1]:</label>
+        <label for="salida1">Salida - Eje:</label>
         <input type="number" id="salida1" step="0.01">
         <button onclick="calcularEje()">Calcular</button>
         <div class="result" id="resultadoEje"></div>
         <button onclick="toggleFormulas('formulasEje')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasEje">
-            <p>Resu1 = entrada[0] + salida[0] × (salida[1] - entrada[1])</p>
-            <p>Resu2 = entrada[0] + salida[0] × (salida[1] - entrada[1]) / 2</p>
+            <p><strong>Resu1</strong> = entrada[0] + salida[0] × (salida[1] - entrada[1])</p>
+            <p><strong>Resu2</strong> = entrada[0] + salida[0] × (salida[1] - entrada[1]) / 2</p>
         </div>
     </div>
 
     <div class="section" id="contravuelco">
-        <h2>Contravuelco</h2>
+        <h2>Contravuelcos</h2>
+        <p><strong>Aplicación:</strong> Cálculo de dimensiones para estructuras en V invertida</p>
         <img src="../atribucion/controvul.png" alt="Contravuelco" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloContra">Ángulo:</label>
+        <label for="anguloContra">Ángulo (°):</label>
         <input type="number" id="anguloContra" step="0.01">
         <label for="marcacentro">Marca Centro:</label>
         <input type="number" id="marcacentro" step="0.01">
@@ -123,68 +126,96 @@
         <div class="result" id="resultadoContravuelco"></div>
         <button onclick="toggleFormulas('formulasContravuelco')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasContravuelco">
-            <p>Centro = marca centro + 2 × descuento[0]</p>
-            <p>Lado = √(largo² + altura²)</p>
-            <p>Lado pendiente = lado / cos((ángulo - 90) × π / 180)</p>
-            <p>Lado centro = lado × tan((ángulo - 90) × π / 180)</p>
-            <p>Ancho = (eje in - 1) × tubo + centro + 2 × lado × tan((ángulo - 90) × π / 180)</p>
-            <p>Ángulo patas = 90 + arcsin(altura / lado pendiente) × 180 / π</p>
-            <p>Marca pendiente = lado pendiente - descuento[0] - descuento1[0]</p>
+            <p><strong>Centro</strong> = marca centro + 2 × descuento[0]</p>
+            <p><strong>Lado</strong> = √(largo² + altura²)</p>
+            <p><strong>Lado pendiente</strong> = lado / cos((ángulo - 90) × π / 180)</p>
+            <p><strong>Lado centro</strong> = lado × tan((ángulo - 90) × π / 180)</p>
+            <p><strong>Ancho</strong> = (eje in - 1) × tubo + centro + 2 × lado × tan((ángulo - 90) × π / 180)</p>
+            <p><strong>Ángulo patas</strong> = 90 + arcsin(altura / lado pendiente) × 180 / π</p>
+            <p><strong>Marca pendiente</strong> = lado pendiente - descuento[0] - descuento1[0]</p>
         </div>
     </div>
 
     <div class="section" id="angulo">
         <h2>Ángulo entre Vectores</h2>
-        <label for="vec1x">Vector1 X:</label>
+        <p><strong>Aplicación:</strong> Cálculo del ángulo entre dos vectores en el espacio</p>
+        <label for="vec1x">Vector 1 - X:</label>
         <input type="number" id="vec1x" step="0.01">
-        <label for="vec1y">Vector1 Y:</label>
+        <label for="vec1y">Vector 1 - Y:</label>
         <input type="number" id="vec1y" step="0.01">
-        <label for="vec1z">Vector1 Z:</label>
+        <label for="vec1z">Vector 1 - Z:</label>
         <input type="number" id="vec1z" step="0.01">
-        <label for="vec2x">Vector2 X:</label>
+        <label for="vec2x">Vector 2 - X:</label>
         <input type="number" id="vec2x" step="0.01">
-        <label for="vec2y">Vector2 Y:</label>
+        <label for="vec2y">Vector 2 - Y:</label>
         <input type="number" id="vec2y" step="0.01">
-        <label for="vec2z">Vector2 Z:</label>
+        <label for="vec2z">Vector 2 - Z:</label>
         <input type="number" id="vec2z" step="0.01">
         <button onclick="calcularAngulo()">Calcular</button>
         <button onclick="toggleFormulas('formulasAngulo')">Mostrar Fórmulas</button>
         <div class="result" id="resultadoAngulo"></div>
         <div class="formulas" id="formulasAngulo">
             <h4>Fórmulas utilizadas:</h4>
-            <p>Producto punto = Σ (vector1[i] × vector2[i])</p>
-            <p>Módulo1 = √Σ vector1[i]²</p>
-            <p>Módulo2 = √Σ vector2[i]²</p>
-            <p>Ángulo = arccos(producto / (módulo1 × módulo2)) × 180/π</p>
+            <p><strong>Producto punto</strong> = Σ (vector1[i] × vector2[i])</p>
+            <p><strong>Módulo 1</strong> = √Σ vector1[i]²</p>
+            <p><strong>Módulo 2</strong> = √Σ vector2[i]²</p>
+            <p><strong>Ángulo</strong> = arccos(producto / (módulo1 × módulo2)) × 180/π</p>
         </div>
     </div>
 
     <div class="section" id="baranda">
-        <h2>Baranda</h2>
+        <h2>Barandas</h2>
+        <p><strong>Aplicación:</strong> Diseño de sistemas de protección</p>
         <img src="../atribucion/baranda.png" alt="Baranda" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloBar">Ángulo:</label>
+        <label for="anguloBar">Ángulo (°):</label>
         <input type="number" id="anguloBar" step="0.01">
-        <label for="tuboBar">Tubo:</label>
+        <label for="tuboBar">Diámetro exterior del tubo (mm):</label>
         <input type="number" id="tuboBar" step="0.01">
-        <label for="rodilloBar">Rodillo:</label>
+        <label for="rodilloBar">Diámetro del rodillo (mm):</label>
         <input type="number" id="rodilloBar" step="0.01">
-        <label for="anchoBar">Ancho:</label>
+        <label for="anchoBar">Ancho (mm):</label>
         <input type="number" id="anchoBar" step="0.01">
-        <label for="alturaBar">Altura:</label>
+        <label for="alturaBar">Altura (mm):</label>
         <input type="number" id="alturaBar" step="0.01">
         <label for="factorkBar">Factor K:</label>
-        <input type="number" id="factorkBar" step="0.01">
+        <input type="number" id="factorkBar" step="0.01" value="0.4">
         <button onclick="calcularBaranda()">Calcular</button>
         <button onclick="toggleFormulas('formulasBaranda')">Mostrar Fórmulas</button>
         <div class="result" id="resultadoBaranda"></div>
         <div class="formulas" id="formulasBaranda">
             <h4>Fórmulas utilizadas:</h4>
-            <p>TuboH = tubo[0] × cos((ángulo-90) × π/180)</p>
-            <p>TuboV = tubo[0] / tan(ángulo/2 × π/180)</p>
-            <p>Alineado = altura[0] / cos((ángulo-90) × π/180)</p>
-            <p>MarcaAL = (alineado + tuboV × (tubo[1]-altura[1])/2) - descuento[0]</p>
-            <p>MarcaCT = (ancho[0] + tuboH × (tubo[1]-ancho[1])) - 2 × alturaEJE × tan((ángulo-90) × π/180) - 2 × descuento[0]</p>
-            <p>Desarrollo = 2 × marcaAL + marcaCT</p>
+            <p><strong>TuboH</strong> = tubo[0] × cos((ángulo-90) × π/180)</p>
+            <p><strong>TuboV</strong> = tubo[0] / tan(ángulo/2 × π/180)</p>
+            <p><strong>Alineado</strong> = altura[0] / cos((ángulo-90) × π/180)</p>
+            <p><strong>Marca AL</strong> = (alineado + tuboV × (tubo[1]-altura[1])/2) - descuento[0]</p>
+            <p><strong>Marca CT</strong> = (ancho[0] + tuboH × (tubo[1]-ancho[1])) - 2 × alturaEJE × tan((ángulo-90) × π/180) - 2 × descuento[0]</p>
+            <p><strong>Desarrollo</strong> = 2 × marcaAL + marcaCT</p>
+        </div>
+    </div>
+
+    <div class="section" id="dosaguas">
+        <h2>Techos a Dos Aguas</h2>
+        <p><strong>Aplicación:</strong> Dimensionamiento de estructuras de cubierta</p>
+        <img src="../atribucion/dos aguas.png" alt="Dos Aguas" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="anguloDos">Ángulo (°):</label>
+        <input type="number" id="anguloDos" step="0.01">
+        <label for="tuboDos">Diámetro exterior del tubo (mm):</label>
+        <input type="number" id="tuboDos" step="0.01">
+        <label for="rodilloDos">Diámetro del rodillo (mm):</label>
+        <input type="number" id="rodilloDos" step="0.01">
+        <label for="anchoDos">Ancho (mm):</label>
+        <input type="number" id="anchoDos" step="0.01">
+        <label for="factorkDos">Factor K:</label>
+        <input type="number" id="factorkDos" step="0.01" value="0.4">
+        <button onclick="calcularDosAguas()">Calcular</button>
+        <button onclick="toggleFormulas('formulasDosAguas')">Mostrar Fórmulas</button>
+        <div class="result" id="resultadoDosAguas"></div>
+        <div class="formulas" id="formulasDosAguas">
+            <h4>Fórmulas utilizadas:</h4>
+            <p><strong>Anginferior</strong> = 180 - (ángulo/2)</p>
+            <p><strong>Apice</strong> = ancho[0] / (2 × tan(ángulo/2 × π/180)) - codo1[3]</p>
+            <p><strong>Lado</strong> = ancho[0] / (2 × sin(ángulo/2 × π/180))</p>
+            <p><strong>Marca lado</strong> = lado - (codo1[0] + codo2[0])</p>
         </div>
     </div>
 
@@ -266,51 +297,53 @@
     </div>
 
     <div class="section" id="pasamano">
-        <h2>Pasamano</h2>
+        <h2>Pasamanos</h2>
+        <p><strong>Aplicación:</strong> Diseño de sistemas de apoyo y seguridad</p>
         <img src="../atribucion/pasamano.png" alt="Pasamano" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="rodilloPas">Rodillo:</label>
+        <label for="rodilloPas">Diámetro del rodillo (mm):</label>
         <input type="number" id="rodilloPas" step="0.01">
-        <label for="tuboPas">Tubo:</label>
+        <label for="tuboPas">Diámetro exterior del tubo (mm):</label>
         <input type="number" id="tuboPas" step="0.01">
-        <label for="largoPas">Largo:</label>
+        <label for="largoPas">Largo (mm):</label>
         <input type="number" id="largoPas" step="0.01">
-        <label for="pata1Pas">Pata1:</label>
+        <label for="pata1Pas">Pata 1 (mm):</label>
         <input type="number" id="pata1Pas" step="0.01">
-        <label for="angulo1Pas">Ángulo1:</label>
+        <label for="angulo1Pas">Ángulo 1 (°):</label>
         <input type="number" id="angulo1Pas" step="0.01">
-        <label for="pata2Pas">Pata2:</label>
+        <label for="pata2Pas">Pata 2 (mm):</label>
         <input type="number" id="pata2Pas" step="0.01">
-        <label for="angulo2Pas">Ángulo2:</label>
+        <label for="angulo2Pas">Ángulo 2 (°):</label>
         <input type="number" id="angulo2Pas" step="0.01">
         <label for="factorkPas">Factor K:</label>
-        <input type="number" id="factorkPas" step="0.01">
+        <input type="number" id="factorkPas" step="0.01" value="0.4">
         <button onclick="calcularPasamano()">Calcular</button>
         <div class="result" id="resultadoPasamano"></div>
         <button onclick="toggleFormulas('formulasPasamano')">Mostrar Fórmulas</button>
         <div class="formulas" id="formulasPasamano">
-            <p>TuboV1/V2: Similar a baranda.</p>
-            <p>Llama a codoWithJSLI dos veces.</p>
-            <p>Marca pata1/2: Cálculos de marcas basados en patas y ángulos.</p>
-            <p>Marca largo: Marca longitudinal.</p>
-            <p>Desarrollo: Suma de marcas.</p>
+            <p><strong>TuboV1/V2</strong>: Similar a baranda.</p>
+            <p>Llama a <strong>codoWithJSLI</strong> dos veces.</p>
+            <p><strong>Marca pata1/2</strong>: Cálculos de marcas basados en patas y ángulos.</p>
+            <p><strong>Marca largo</strong>: Marca longitudinal.</p>
+            <p><strong>Desarrollo</strong>: Suma de marcas.</p>
         </div>
     </div>
 
     <div class="section" id="parchoque">
-        <h2>Parchoque</h2>
+        <h2>Parachoques</h2>
+        <p><strong>Aplicación:</strong> Cálculo para elementos de protección perimetral</p>
         <img src="../atribucion/parchoque.png" alt="Parchoque" style="max-width:100%; height:auto; margin-bottom:20px;">
-        <label for="anguloPar">Ángulo:</label>
+        <label for="anguloPar">Ángulo (°):</label>
         <input type="number" id="anguloPar" step="0.01">
-        <label for="tuboPar">Tubo:</label>
+        <label for="tuboPar">Diámetro exterior del tubo (mm):</label>
         <input type="number" id="tuboPar" step="0.01">
-        <label for="rodilloPar">Rodillo:</label>
+        <label for="rodilloPar">Diámetro del rodillo (mm):</label>
         <input type="number" id="rodilloPar" step="0.01">
-        <label for="anchoPar">Ancho:</label>
+        <label for="anchoPar">Ancho (mm):</label>
         <input type="number" id="anchoPar" step="0.01">
-        <label for="alturaPar">Altura:</label>
+        <label for="alturaPar">Altura (mm):</label>
         <input type="number" id="alturaPar" step="0.01">
         <label for="factorkPar">Factor K:</label>
-        <input type="number" id="factorkPar" step="0.01">
+        <input type="number" id="factorkPar" step="0.01" value="0.4">
         <button onclick="calcularParchoque()">Calcular</button>
         <div class="result" id="resultadoParchoque"></div>
         <button onclick="toggleFormulas('formulasParchoque')">Mostrar Fórmulas</button>
@@ -391,6 +424,20 @@
                  Marca CT: ${result[2].toFixed(2)}<br>
                  Descuento: ${result[3].toFixed(2)}<br>
                  Altura EJE: ${result[4].toFixed(2)}`;
+        }
+
+        function calcularDosAguas() {
+            const angulo = parseFloat(document.getElementById('anguloDos').value);
+            const tubo = [parseFloat(document.getElementById('tuboDos').value), 1];
+            const rodillo = [parseFloat(document.getElementById('rodilloDos').value), 0];
+            const ancho = [parseFloat(document.getElementById('anchoDos').value), 0];
+            const factork = parseFloat(document.getElementById('factorkDos').value);
+            const result = window.dosaguasWithJSLI(angulo, tubo, rodillo, ancho, factork);
+            document.getElementById('resultadoDosAguas').innerHTML = 
+                `Apice: ${result[0].toFixed(2)}<br>
+                 Marca lado: ${result[1].toFixed(2)}<br>
+                 Ángulo inferior: ${result[2].toFixed(2)}<br>
+                 Lado: ${result[3].toFixed(2)}`;
         }
 
         function calcularProductoPunto() {

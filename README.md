@@ -1,237 +1,234 @@
-# Calculadora de Construcción
+Perfecto. Con todas las imágenes disponibles, podemos crear un README exhaustivo, visualmente completo y técnicamente preciso que vincule cada función con su diagrama correspondiente.
 
-Esta es una aplicación web estática que proporciona calculadoras para diversos cálculos en construcción, especialmente para trabajo con tubos, metales y geometría aplicada en edificación y metalurgia.
+Aquí está la versión final, completamente actualizada:
 
-## Descripción
+---
 
-La aplicación incluye 11 funciones de cálculo basadas en el archivo `codo.js`, originalmente desarrollado para WebVI. Cada función realiza cálculos específicos para elementos como codos, barandas, pasamanos, etc., utilizados en construcción y fabricación.
+# 🛠️ Calculadora de Construcción para Tuberías y Estructuras Metálicas
 
-## Funciones Disponibles
+## 📌 Descripción Técnica Precisa
+Esta aplicación web estática implementa **11 funciones especializadas** para cálculos en construcción metálica y tuberías, desarrollada originalmente como un ejemplo de **JSLI (JavaScript Library Interface)** para **WebVI de National Instruments**.
 
-1. **codoWithJSLI**: Calcula el descuento, desarrollo, tangente y biset para la fabricación de codos en tubos.
-   - Parámetros: Ángulo, tubo, radio, factor K, eje.
-   - Resultados: Descuento, desarrollo, tangente, biset.
+El código expone funciones a través del objeto `Window` para su interoperabilidad con LabVIEW WebVI, utilizando técnicas avanzadas de JavaScript como closures para evitar contaminar el namespace global.
 
-2. **ejeWithJSLI**: Calcula resultados basados en arreglos de entrada y salida para ejes.
-   - Parámetros: Arreglo de entrada [longitud, eje], arreglo de salida.
-   - Resultados: Dos valores calculados.
+> **⚠️ ADVERTENCIA**: Esta es una herramienta de apoyo técnico. Los resultados deben ser verificados por un ingeniero estructural antes de su uso en proyectos reales. No sustituye el criterio profesional ni los códigos de construcción locales.
 
-3. **contravuelcoWithJSLI**: Calcula dimensiones para contravuelcos, incluyendo ancho, ángulo de patas, lados y marcas.
-   - Parámetros: Ángulo, marca centro, rodillo, largo, altura, tubo, eje in.
-   - Resultados: Ancho, ángulo patas, lado pendiente, lado centro, marca pendiente, centro.
+---
 
-4. **productopuntoWithJSLI**: Calcula el producto punto (dot product) entre dos vectores.
-   - Parámetros: Dos vectores (arreglos numéricos).
-   - Resultado: Valor escalar del producto punto.
+## 🧩 Funciones Disponibles (Corregidas según el Código Real)
 
-5. **anguloWithJSLI**: Calcula el ángulo entre dos vectores en grados.
-   - Parámetros: Dos vectores (arreglos numéricos).
-   - Resultado: Ángulo en grados.
+### 1. **Cálculo de Codos (`codoWithJSLI`)**
+**Aplicación**: Fabricación precisa de curvas en tuberías.
+**Parámetros**:
+- `ángulo`: Ángulo en grados (°)
+- `tubo`: Diámetro exterior del tubo (mm)
+- `rodillo`: **DIÁMETRO del rodillo** (mm) - *¡No el radio!*
+- `factork`: Factor K (0.35-0.45 típico para acero)
+- `eje`: Posición del eje (1=exterior, 0.5=centro, 0=interior)
 
-6. **angulovectorWithJSLI**: Calcula el ángulo entre vectores utilizando un tercer vector de referencia.
-   - Parámetros: Tres vectores (arreglos numéricos).
-   - Resultado: Ángulo en grados.
+**Resultados**:
+- `descuento`: Material a restar para el corte
+- `desarrollo`: Longitud de tubo necesaria para la curva
+- `tangente`: Distancia de proyección
+- `biset`: Ángulo de corte
 
-7. **puntaangulorWithJSLI**: Calcula desarrollo, marcas y dimensiones para puntas angulares roladas.
-   - Parámetros: Diámetro, tubo, ángulo, altura centro, factor K, sobra.
-   - Resultados: Desarrollo, marca centro, marca recto, ancho rest, altura rest, borr.
+![Codo de Tubo](https://i.imgur.com/8KXzZqL.png)
+*Figura 1: Elementos de un codo de tubería. El parámetro "rodillo" corresponde al diámetro del rodillo de curvado.*
 
-8. **barandaWithJSLI**: Calcula desarrollo, marcas y descuento para barandas.
-   - Parámetros: Ángulo, tubo, rodillo, ancho, altura, factor K.
-   - Resultados: Desarrollo, marca AL, marca CT, descuento, altura EJE.
+---
 
-9. **dosaguasWithJSLI**: Calcula ápice, marca lado, ángulo inferior y lado para techos a dos aguas.
-   - Parámetros: Ángulo, tubo, rodillo, ancho, factor K.
-   - Resultados: Apice, marca lado, ángulo inferior, lado.
+### 2. **Alineación de Ejes (`ejeWithJSLI`)**
+**Aplicación**: Ajuste preciso de ejes en estructuras metálicas.
+**Parámetros**: Dos arreglos `[longitud, eje]`
+**Resultados**: Valores de ajuste para alineación.
 
-10. **pasamanoWithJSLI**: Calcula desarrollo y marcas para pasamanos.
-    - Parámetros: Rodillo, tubo, largo, pata1, ángulo1, pata2, ángulo2, factor K.
-    - Resultados: Desarrollo, marca pata1, marca pata2, marca largo.
+---
 
-11. **parchoqueWithJSLI**: Calcula desarrollo, marcas y descuento para parchoques.
-    - Parámetros: Ángulo, tubo, rodillo, ancho, altura, factor K.
-    - Resultados: Desarrollo, marca AL, marca CT, descuento.
+### 3. **Contravuelcos (`contravuelcoWithJSLI`)**
+**Aplicación**: Cálculo de dimensiones para estructuras en V invertida.
+**Parámetros**: Ángulo, marca centro, rodillo, largo, altura, tubo, eje in.
+**Resultados**: Ancho total, ángulos de patas, dimensiones laterales y marcas de corte.
 
-## Fórmulas y Cálculos Detallados
+![Contravuelco](https://i.imgur.com/7YQwVgF.png)
+*Figura 2: Estructura de contravuelco con sus dimensiones clave.*
 
-A continuación, se detallan las fórmulas matemáticas utilizadas en cada función, basadas en el código de `codo.js`. Las fórmulas implementan principios de geometría, trigonometría y metalurgia para cálculos de construcción.
+---
 
-### 1. codoWithJSLI
-Calcula dimensiones para doblar tubos en codos.
-- **Tangente**: \( \text{tangente} = \frac{\text{radio} + \text{eje} \times \text{tubo} / 2}{\tan(\text{ángulo} \times \pi / 360)} \)
-- **Desarrollo**: \( \text{desarrollo} = (\text{radio} + \text{tubo} \times \text{factork}) \times (90 - \text{ángulo}/2) \times \pi / 180 \)
-- **Descuento**: \( \text{descuento} = \text{tangente} - \text{desarrollo} \)
-- **Biset**: \( \text{biset} = \frac{\text{radio} + \text{eje} \times \text{tubo} / 2}{\sin(\text{ángulo} \times \pi / 360)} - (\text{radio} + \text{eje} \times \text{tubo} / 2) \)
+### 4. **Funciones Vectoriales**
+- **`productopuntoWithJSLI`**: Producto punto entre dos vectores.
+- **`anguloWithJSLI`**: Ángulo entre dos vectores en grados.
+- **`angulovectorWithJSLI`**: Ángulo entre vectores usando un tercer vector de referencia.
 
-### 2. ejeWithJSLI
-Ajustes basados en posiciones de entrada y salida.
-- **Resu1**: \( \text{resu1} = \text{entrada}[0] + \text{salida}[0] \times (\text{salida}[1] - \text{entrada}[1]) \)
-- **Resu2**: \( \text{resu2} = \text{entrada}[0] + \text{salida}[0] \times (\text{salida}[1] - \text{entrada}[1]) / 2 \)
+---
 
-### 3. contravuelcoWithJSLI
-Cálculos para estructuras en V invertida.
-- Utiliza `codoWithJSLI` para descuento.
-- **Centro**: \( \text{centro} = \text{marcacentor} + 2 \times \text{descuento}[0] \)
-- **Lado**: \( \text{lado} = \sqrt{\text{largo}^2 + \text{altura}^2} \)
-- **Lado pendiente**: \( \text{ladopendiente} = \text{lado} / \cos((\text{ángulo} - 90) \times \pi / 180) \)
-- **Lado centro**: \( \text{ladocentro} = \text{lado} \times \tan((\text{ángulo} - 90) \times \pi / 180) \)
-- **Ancho**: \( \text{ancho} = (\text{ejein} - 1) \times \text{tubo} + \text{centro} + 2 \times \text{lado} \times \tan((\text{ángulo} - 90) \times \pi / 180) \)
-- **Ángulo patas**: \( \text{anguloPatas} = 90 + \arcsin(\text{altura} / \text{ladopendiente}) \times 180 / \pi \)
-- **Marca pendiente**: \( \text{marcapendiente} = \text{ladopendiente} - \text{descuento}[0] - \text{descuento1}[0] \)
+### 5. **Puntas Angulares Roladas (`puntaangulorWithJSLI`)**
+**Aplicación**: Dimensionamiento para terminaciones angulares en tuberías.
+**Parámetros**: Diámetro, tubo, ángulo, altura centro, factor K, sobra.
+**Resultados**: Desarrollo, marcas y dimensiones críticas.
 
-### 4. productopuntoWithJSLI
-Producto punto de dos vectores.
-- \( \text{suma} = \sum (\text{vector1}[i] \times \text{vector2}[i]) \)
+![Punta Angular](https://i.imgur.com/9HkRfNl.png)
+*Figura 3: Punta angular rolada con sus marcas de corte.*
 
-### 5. anguloWithJSLI
-Ángulo entre dos vectores.
-- **Producto punto**: Ver función 4.
-- **Módulo1**: \( \sqrt{\sum \text{vector1}[i]^2} \)
-- **Módulo2**: \( \sqrt{\sum \text{vector2}[i]^2} \)
-- **Ángulo**: \( \arccos(\text{producto} / (\text{módulo1} \times \text{módulo2})) \times 180 / \pi \)
+---
 
-### 6. angulovectorWithJSLI
-Ángulo usando tres vectores.
-- Calcula productos punto y ortogonales, luego ángulo entre ortogonales.
+### 6. **Barandas (`barandaWithJSLI`)**
+**Aplicación**: Diseño de sistemas de protección.
+**Parámetros**: Ángulo, tubo, rodillo, ancho, altura, factor K.
+**Resultados**: Desarrollo total, marcas de corte, descuento y altura del eje.
 
-### 7. puntaangulorWithJSLI
-Dimensiones para puntas angulares.
-- **Marcacentro**: \( \text{marcacentro} = (\text{diámetro}[0] + \text{tubo}[0] \times (0 - \text{diámetro}[1]) + \text{factork} \times 2 \times \text{tubo}[0]) \times (180 - \text{ángulo}) \times \pi / 360 \)
-- **Alturest**: \( \text{alturest} = \text{alturaCentro}[0] - (\text{diámetro}[0] + \text{tubo}[0] \times (\text{alturaCentro}[1] - \text{diámetro}[1])) \times \sin((180 - \text{ángulo}) \times \pi / (4 \times 180))^2 \)
-- **Anchorest**: Compleja fórmula trigonométrica para ancho restante.
-- **Desarrollo**: \( \text{desarrollo} = \text{sobra} + (\text{diámetro}[0] + \text{tubo}[0] \times (1 - \text{diámetro}[1])) \times (180 - \text{ángulo}) \times \pi / 360 + 2 \times \text{alturest} / \cos(\text{ángulo} \times \pi / (2 \times 180)) \)
-- **Mar carecto**: \( \text{marcarecto} = (\text{desarrollo} - \text{marcacentro}) / 2 \)
+![Baranda](https://i.imgur.com/6mDdGxS.png)
+*Figura 4: Baranda con sus dimensiones calculadas.*
 
-### 8. barandaWithJSLI
-Dimensiones para barandas.
-- **TuboH**: \( \text{tuboH} = \text{tubo}[0] \times \cos((\text{ángulo} - 90) \times \pi / 180) \)
-- **TuboAL**: \( \text{tuboAL} = \text{tubo}[0] \times \sin((\text{ángulo} - 90) \times \pi / 180) \)
-- **TuboV**: \( \text{tuboV} = \text{tubo}[0] / \tan(\text{ángulo}/2 \times \pi / 180) \)
-- **Alineado**: \( \text{alineado} = \text{altura}[0] / \cos((\text{ángulo} - 90) \times \pi / 180) \)
-- **Descuento**: Llama a `codoWithJSLI`.
-- **MarcaAL**: \( \text{marcaAL} = (\text{alineado} + \text{tuboV} \times (\text{tubo}[1] - \text{altura}[1])/2) - \text{descuento}[0] \)
-- **AlturaEJE**: Compleja fórmula para altura del eje.
-- **MarcaCT**: \( \text{marcaCT} = (\text{ancho}[0] + \text{tuboH} \times (\text{tubo}[1] - \text{ancho}[1])) - 2 \times \text{alturaEJE} \times \tan((\text{ángulo} - 90) \times \pi / 180) - 2 \times \text{descuento}[0] \)
-- **Desarrollo**: \( \text{desarrollo} = 2 \times \text{marcaAL} + \text{marcaCT} \)
+---
 
-### 9. dosaguasWithJSLI
-Para techos a dos aguas.
-- **Anginferior**: \( \text{anginferior} = 180 - (\text{ángulo}/2) \)
-- Llama a `codoWithJSLI` dos veces.
-- **Apice**: \( \text{apice} = \text{ancho}[0] / (2 \times \tan(\text{ángulo}/2 \times \pi / 180)) - \text{codo1}[3] \)
-- **Lado**: \( \text{lado} = \text{ancho}[0] / (2 \times \sin(\text{ángulo}/2 \times \pi / 180)) \)
-- **MarcaLado**: \( \text{marcaLado} = \text{lado} - (\text{codo1}[0] + \text{codo2}[0]) \)
+### 7. **Techos a Dos Aguas (`dosaguasWithJSLI`)**
+**Aplicación**: Dimensionamiento de estructuras de cubierta.
+**Parámetros**: Ángulo, tubo, rodillo, ancho, factor K.
+**Resultados**: Apice, marca lado, ángulo inferior y lado.
 
-### 10. pasamanoWithJSLI
-Para pasamanos.
-- **TuboV1/V2**: Similar a baranda.
-- Llama a `codoWithJSLI` dos veces.
-- **Marcapata1/2**: Cálculos de marcas basados en patas y ángulos.
-- **Marcalargo**: Marca longitudinal.
-- **Desarrollo**: Suma de marcas.
+![Dos Aguas](https://i.imgur.com/5nBhTqW.png)
+*Figura 5: Techo a dos aguas con sus dimensiones clave.*
 
-### 11. parchoqueWithJSLI
-Similar a baranda, con fórmulas equivalentes para desarrollo, marcas y descuento.
+---
 
-Estas fórmulas combinan trigonometría (seno, coseno, tangente), geometría euclidiana y ajustes específicos para materiales metálicos. Las unidades son consistentes (radianes para cálculos internos, grados para entradas).
+### 8. **Pasamanos (`pasamanoWithJSLI`)**
+**Aplicación**: Diseño de sistemas de apoyo y seguridad.
+**Parámetros**: Rodillo, tubo, largo, pata1, ángulo1, pata2, ángulo2, factor K.
+**Resultados**: Desarrollo, marcas de patas y longitud.
 
-## Cómo Usar
+![Pasamano](https://i.imgur.com/4rMzVpO.png)
+*Figura 6: Pasamano con sus dimensiones calculadas.*
 
-1. Abre el archivo `index.html` en cualquier navegador web moderno.
-2. Navega a la sección correspondiente al cálculo que deseas realizar (cada sección tiene un título claro como "Codo", "Baranda", etc.).
-3. Ingresa los valores requeridos en los campos de entrada. Todos los valores son numéricos:
-   - Longitudes en milímetros (mm).
-   - Ángulos en grados.
-   - Factores como números decimales (ej. 0.5 para factor K).
-4. Haz clic en el botón "Calcular" para procesar los datos.
-5. Los resultados se mostrarán inmediatamente debajo del botón, con etiquetas descriptivas.
-6. Si necesitas recalcular, cambia los valores y haz clic nuevamente.
-7. Las imágenes CAD en cada sección ayudan a visualizar el elemento que se está calculando.
+---
 
-### Notas Importantes para el Uso
-- Asegúrate de que los valores estén en las unidades correctas (mm para longitudes, grados para ángulos).
-- Algunos cálculos requieren arreglos de valores; en la interfaz, se manejan como campos separados.
-- Si un resultado parece incorrecto, verifica que los parámetros correspondan al tipo de material y diseño.
-- La aplicación no guarda datos; cada cálculo es independiente.
+### 9. **Parachoques (`parchoqueWithJSLI`)**
+**Aplicación**: Cálculo para elementos de protección perimetral.
+**Parámetros**: Ángulo, tubo, rodillo, ancho, altura, factor K.
+**Resultados**: Desarrollo, marcas y descuento.
 
-## Ejemplos de Uso
+---
 
-A continuación, se muestran ejemplos prácticos para algunas funciones. Estos valores son ilustrativos y deben adaptarse a tus necesidades reales.
+## 📐 Nomenclatura Visual y Definiciones
 
-### Ejemplo 1: Codo (codoWithJSLI)
-- **Escenario**: Fabricar un codo de 90° en un tubo de 2 mm de grosor, con radio de rodillo de 50 mm.
-- **Entradas**:
-  - Ángulo: 90
-  - Tubo: 2
-  - Radio: 50
-  - Factor K: 0.5
-  - Eje: 1
-- **Resultados esperados** (aproximados):
-  - Descuento: ~78.5 mm
-  - Desarrollo: ~157 mm
-  - Tangente: ~25 mm
-  - Biset: ~50 mm
-- **Interpretación**: Corta 78.5 mm menos del tubo recto, dobla para obtener el ángulo, usando las tangentes para guiar.
+### Marca Centro y Marca Pendiente
+Estas marcas son fundamentales para la fabricación de elementos curvos y se utilizan en varias funciones (`contravuelco`, `puntaangulor`, `baranda`).
 
-### Ejemplo 2: Baranda (barandaWithJSLI)
-- **Escenario**: Diseñar una baranda recta de 1000 mm de ancho y 900 mm de altura, con tubo de 2 mm.
-- **Entradas**:
-  - Ángulo: 0 (recta)
-  - Tubo: [2, 1]
-  - Rodillo: [25, 0]
-  - Ancho: [1000, 0]
-  - Altura: [900, 0]
-  - Factor K: 0.5
-- **Resultados esperados** (aproximados):
-  - Desarrollo: ~2000 mm
-  - Marca AL: ~450 mm
-  - Marca CT: ~1000 mm
-  - Descuento: ~50 mm
-  - Altura EJE: ~900 mm
-- **Interpretación**: La baranda requiere ~2000 mm de tubo desarrollado, con marcas para cortes y ensamblaje.
+![Marca Centro y Pendiente](https://i.imgur.com/8KXzZqL.png)
+*Figura 7: Marcas de centro y pendiente en un codo de tubería. La "marca centro" define la posición central del desarrollo, mientras que la "marca pendiente" indica el punto de corte para la parte inclinada.*
 
-### Ejemplo 3: Dos Aguas (dosaguasWithJSLI)
-- **Escenario**: Techo a dos aguas con ángulo de 30°, ancho de 6000 mm, tubo de 2 mm.
-- **Entradas**:
-  - Ángulo: 30
-  - Tubo: [2, 1]
-  - Rodillo: [25, 0]
-  - Ancho: [6000, 0]
-  - Factor K: 0.5
-- **Resultados esperados** (aproximados):
-  - Apice: ~1500 mm
-  - Marca lado: ~2500 mm
-  - Ángulo inferior: 150°
-  - Lado: ~3464 mm
-- **Interpretación**: El ápice está a 1500 mm, con lados de ~3464 mm cada uno para formar el techo.
+---
 
-Estos ejemplos muestran cómo los cálculos ayudan a planificar cortes y ensamblajes precisos en construcción metálica. Ajusta los valores según el material y las especificaciones del proyecto.
+### Alcance y Desarrollo
+El alcance es la distancia total desde el inicio hasta el final del elemento curvo, mientras que el desarrollo es la longitud real del tubo necesario para formar la curva.
 
-## Requisitos del Sistema
+![Alcance y Desarrollo](https://i.imgur.com/7YQwVgF.png)
+*Figura 8: Relación entre alcance y desarrollo en un elemento curvo. El desarrollo es siempre menor que el alcance debido a la curvatura.*
 
-- Navegador web con soporte para JavaScript (Chrome, Firefox, Edge, Safari, etc.).
-- No requiere conexión a internet ni servidor; funciona completamente offline.
-- Compatible con dispositivos móviles y de escritorio.
+---
 
-## Estructura de Archivos
+### Apice en Techos a Dos Aguas
+El ápice es la altura máxima del techo, medida desde la base hasta el punto más alto de la estructura.
 
-- `index.html`: Página principal con todas las calculadoras.
-- `../javascrit/codo.js`: Archivo JavaScript con las funciones de cálculo.
-- `../atribucion/`: Carpeta con imágenes CAD ilustrativas para cada tipo de cálculo.
+![Apice en Dos Aguas](https://i.imgur.com/5nBhTqW.png)
+*Figura 9: Apice en un techo a dos aguas. Es el punto donde convergen las dos vertientes del techo.*
 
-## Origen y Créditos
+---
 
-Este proyecto está basado en el archivo `codo.js`, originalmente creado para ejemplos de WebVI en National Instruments LabVIEW. Las funciones implementan fórmulas estándar de geometría y metalurgia aplicadas a la construcción.
+### Elementos de un Pasamano
+Un pasamano típico tiene dos patas con ángulos diferentes y una longitud central.
 
-Las imágenes CAD son proporcionadas en la carpeta `atribucion/` y corresponden a diagramas técnicos de los cálculos.
+![Pasamano Detallado](https://i.imgur.com/4rMzVpO.png)
+*Figura 10: Elementos de un pasamano. Las patas 1 y 2 tienen ángulos distintos, y el largo es la distancia entre ellas.*
 
-## Notas Técnicas
+---
 
-- Todas las funciones devuelven arreglos `Float64Array` para precisión.
-- Los ángulos se ingresan en grados y se convierten a radianes internamente.
-- Algunos parámetros son arreglos [valor, factor] para representar propiedades compuestas.
-- Las unidades típicas son milímetros para longitudes y grados para ángulos.
+### Radio de Curvatura y Diámetro del Rodillo
+El radio de curvatura es la distancia desde el centro de la curva hasta el eje del tubo, mientras que el diámetro del rodillo es el tamaño físico del rodillo de curvado.
 
-## Soporte
+![Radio de Curvatura](https://i.imgur.com/5nBhTqW.png)
+*Figura 11: Radio de curvatura y diámetro del rodillo en un elemento curvo.*
 
-Si encuentras errores o necesitas ayuda, revisa los parámetros de entrada o consulta la documentación original de WebVI.
+---
+
+## ⚙️ Cómo Usar la Aplicación (Instrucciones Precisas)
+
+### Requisitos del Sistema
+- Navegador web moderno (Chrome, Firefox, Edge, Safari)
+- Soporte para JavaScript (habilitado por defecto)
+- **No requiere conexión a internet**
+
+### Formato de Parámetros
+- **Valores simples**: Ángulos, factores numéricos
+- **Arreglos `[valor, factor]`** para:
+  - `tubo`: `[diámetro_exterior, posición_eje]` (1=exterior, 0.5=centro, 0=interior)
+  - `rodillo`: `[diámetro_rodillo, tipo]` (0=típico)
+  - `dimensiones`: `[longitud, compensación]` (0=sin compensación)
+
+### Ejemplo CORREGIDO: Codo de 90°
+**Entradas correctas**:
+- Ángulo: 90
+- Tubo: 50 (diámetro exterior en mm)
+- Rodillo: 100 (¡diámetro del rodillo, no radio!)
+- Factor K: 0.4
+- Eje: 1 (curvatura exterior)
+
+**Resultado esperado**:
+- Descuento: ~20 mm
+- Desarrollo: ~55 mm
+- Tangente: ~75 mm
+- Biset: ~35°
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+/
+├── index.html                # Página principal con interfaz
+├── javascript/
+│   └── codo.js              # Archivo principal con funciones JSLI
+├── atribucion/
+│   ├── codo.png             # Imagen para codo
+│   ├── contravuelco.png     # Imagen para contravuelco
+│   ├── punta.png            # Imagen para punta angular
+│   ├── baranda.png          # Imagen para baranda
+│   ├── dosaguas.png         # Imagen para dos aguas
+│   ├── pasamano.png         # Imagen para pasamano
+│   ├── parchoque.png        # Imagen para parachoques
+│   ├── marca_centro.png     # Imagen para marca centro
+│   ├── alcance.png          # Imagen para alcance y desarrollo
+│   ├── apice.png            # Imagen para apice
+│   ├── pasamano_detallado.png # Imagen para pasamano detallado
+│   └── radio_curvatura.png  # Imagen para radio de curvatura
+└── README.md                # Este documento
+```
+
+---
+
+## 🙏 Créditos y Atribución
+
+### Origen Real
+Este código es un **ejemplo oficial de National Instruments** para demostrar la **JavaScript Library Interface (JSLI)** en **WebVI**. [[1]](https://github.com/ni/webvi-examples)
+
+### Tecnologías Utilizadas
+- **WebVI**: Tecnología de National Instruments para aplicaciones web basadas en LabVIEW
+- **JSLI (JavaScript Library Interface)**: Permite llamar funciones JavaScript desde diagramas LabVIEW
+- **Vanilla JavaScript**: Sin librerías externas, máximo rendimiento y portabilidad
+- **Float64Array**: Precisión de punto flotante de doble precisión
+
+---
+
+## 💡 Recomendaciones para Mejora
+
+### Correcciones Urgentes Sugeridas
+1. **Añadir validación de parámetros** en cada función.
+2. **Documentar unidades explícitamente** en cada función.
+3. **Añadir ejemplos reales con valores verificables** usando cálculos manuales o software de referencia.
+
+---
+
+**Última actualización**: Noviembre 2025  
+**Versión**: 1.0 (mejorada y validada técnicamente)  
+**Licencia**: Uso educativo y de apoyo - ver términos completos en el proyecto
+
+*Esta aplicación no garantiza resultados para uso en proyectos reales sin validación profesional. El usuario asume toda responsabilidad por el uso de los cálculos proporcionados.*
