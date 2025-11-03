@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Construcción</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #555;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            padding: 8px;
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .formulas {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="../javascrit/codo.js"></script>
+</head>
+<body>
+    <h1>Calculadora de Construcción</h1>
+
+    <div class="section" id="codo">
+        <h2>Codo</h2>
+        <img src="../atribucion/dobles 2 90.png" alt="Codo" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="angulo">Ángulo:</label>
+        <input type="number" id="angulo" step="0.01">
+        <label for="tubo">Tubo:</label>
+        <input type="number" id="tubo" step="0.01">
+        <label for="radio">Radio:</label>
+        <input type="number" id="radio" step="0.01">
+        <label for="factork">Factor K:</label>
+        <input type="number" id="factork" step="0.01">
+        <label for="eje">Eje:</label>
+        <input type="number" id="eje" step="0.01">
+        <button onclick="calcularCodo()">Calcular</button>
+        <button onclick="toggleFormulas('formulasCodo')">Mostrar Fórmulas</button>
+        <div class="result" id="resultadoCodo"></div>
+        <div class="formulas" id="formulasCodo">
+            <h4>Fórmulas utilizadas:</h4>
+            <p>Tangente = (radio + eje × tubo / 2) / tan(ángulo × π / 360)</p>
+            <p>Desarrollo = (radio + tubo × factorK) × (90 - ángulo/2) × π / 180</p>
+            <p>Descuento = tangente - desarrollo</p>
+            <p>Biset = [(radio + eje × tubo / 2) / sin(ángulo × π / 360)] - (radio + eje × tubo / 2)</p>
+        </div>
+    </div>
+
+    <div class="section" id="eje">
+        <h2>Eje</h2>
+        <label for="entrada0">Entrada[0]:</label>
+        <input type="number" id="entrada0" step="0.01">
+        <label for="entrada1">Entrada[1]:</label>
+        <input type="number" id="entrada1" step="0.01">
+        <label for="salida0">Salida[0]:</label>
+        <input type="number" id="salida0" step="0.01">
+        <label for="salida1">Salida[1]:</label>
+        <input type="number" id="salida1" step="0.01">
+        <button onclick="calcularEje()">Calcular</button>
+        <div class="result" id="resultadoEje"></div>
+        <button onclick="toggleFormulas('formulasEje')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasEje">
+            <p>Resu1 = entrada[0] + salida[0] × (salida[1] - entrada[1])</p>
+            <p>Resu2 = entrada[0] + salida[0] × (salida[1] - entrada[1]) / 2</p>
+        </div>
+    </div>
+
+    <div class="section" id="contravuelco">
+        <h2>Contravuelco</h2>
+        <img src="../atribucion/controvul.png" alt="Contravuelco" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="anguloContra">Ángulo:</label>
+        <input type="number" id="anguloContra" step="0.01">
+        <label for="marcacentro">Marca Centro:</label>
+        <input type="number" id="marcacentro" step="0.01">
+        <label for="rodilloContra">Rodillo:</label>
+        <input type="number" id="rodilloContra" step="0.01">
+        <label for="largoContra">Largo:</label>
+        <input type="number" id="largoContra" step="0.01">
+        <label for="alturaContra">Altura:</label>
+        <input type="number" id="alturaContra" step="0.01">
+        <label for="tuboContra">Tubo:</label>
+        <input type="number" id="tuboContra" step="0.01">
+        <label for="ejein">Eje In:</label>
+        <input type="number" id="ejein" step="0.01">
+        <button onclick="calcularContravuelco()">Calcular</button>
+        <div class="result" id="resultadoContravuelco"></div>
+        <button onclick="toggleFormulas('formulasContravuelco')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasContravuelco">
+            <p>Centro = marca centro + 2 × descuento[0]</p>
+            <p>Lado = √(largo² + altura²)</p>
+            <p>Lado pendiente = lado / cos((ángulo - 90) × π / 180)</p>
+            <p>Lado centro = lado × tan((ángulo - 90) × π / 180)</p>
+            <p>Ancho = (eje in - 1) × tubo + centro + 2 × lado × tan((ángulo - 90) × π / 180)</p>
+            <p>Ángulo patas = 90 + arcsin(altura / lado pendiente) × 180 / π</p>
+            <p>Marca pendiente = lado pendiente - descuento[0] - descuento1[0]</p>
+        </div>
+    </div>
+
+    <div class="section" id="angulo">
+        <h2>Ángulo entre Vectores</h2>
+        <label for="vec1x">Vector1 X:</label>
+        <input type="number" id="vec1x" step="0.01">
+        <label for="vec1y">Vector1 Y:</label>
+        <input type="number" id="vec1y" step="0.01">
+        <label for="vec1z">Vector1 Z:</label>
+        <input type="number" id="vec1z" step="0.01">
+        <label for="vec2x">Vector2 X:</label>
+        <input type="number" id="vec2x" step="0.01">
+        <label for="vec2y">Vector2 Y:</label>
+        <input type="number" id="vec2y" step="0.01">
+        <label for="vec2z">Vector2 Z:</label>
+        <input type="number" id="vec2z" step="0.01">
+        <button onclick="calcularAngulo()">Calcular</button>
+        <button onclick="toggleFormulas('formulasAngulo')">Mostrar Fórmulas</button>
+        <div class="result" id="resultadoAngulo"></div>
+        <div class="formulas" id="formulasAngulo">
+            <h4>Fórmulas utilizadas:</h4>
+            <p>Producto punto = Σ (vector1[i] × vector2[i])</p>
+            <p>Módulo1 = √Σ vector1[i]²</p>
+            <p>Módulo2 = √Σ vector2[i]²</p>
+            <p>Ángulo = arccos(producto / (módulo1 × módulo2)) × 180/π</p>
+        </div>
+    </div>
+
+    <div class="section" id="baranda">
+        <h2>Baranda</h2>
+        <img src="../atribucion/baranda.png" alt="Baranda" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="anguloBar">Ángulo:</label>
+        <input type="number" id="anguloBar" step="0.01">
+        <label for="tuboBar">Tubo:</label>
+        <input type="number" id="tuboBar" step="0.01">
+        <label for="rodilloBar">Rodillo:</label>
+        <input type="number" id="rodilloBar" step="0.01">
+        <label for="anchoBar">Ancho:</label>
+        <input type="number" id="anchoBar" step="0.01">
+        <label for="alturaBar">Altura:</label>
+        <input type="number" id="alturaBar" step="0.01">
+        <label for="factorkBar">Factor K:</label>
+        <input type="number" id="factorkBar" step="0.01">
+        <button onclick="calcularBaranda()">Calcular</button>
+        <button onclick="toggleFormulas('formulasBaranda')">Mostrar Fórmulas</button>
+        <div class="result" id="resultadoBaranda"></div>
+        <div class="formulas" id="formulasBaranda">
+            <h4>Fórmulas utilizadas:</h4>
+            <p>TuboH = tubo[0] × cos((ángulo-90) × π/180)</p>
+            <p>TuboV = tubo[0] / tan(ángulo/2 × π/180)</p>
+            <p>Alineado = altura[0] / cos((ángulo-90) × π/180)</p>
+            <p>MarcaAL = (alineado + tuboV × (tubo[1]-altura[1])/2) - descuento[0]</p>
+            <p>MarcaCT = (ancho[0] + tuboH × (tubo[1]-ancho[1])) - 2 × alturaEJE × tan((ángulo-90) × π/180) - 2 × descuento[0]</p>
+            <p>Desarrollo = 2 × marcaAL + marcaCT</p>
+        </div>
+    </div>
+
+    <div class="section" id="productopunto">
+        <h2>Producto Punto</h2>
+        <label for="vec1px">Vector1 X:</label>
+        <input type="number" id="vec1px" step="0.01">
+        <label for="vec1py">Vector1 Y:</label>
+        <input type="number" id="vec1py" step="0.01">
+        <label for="vec1pz">Vector1 Z:</label>
+        <input type="number" id="vec1pz" step="0.01">
+        <label for="vec2px">Vector2 X:</label>
+        <input type="number" id="vec2px" step="0.01">
+        <label for="vec2py">Vector2 Y:</label>
+        <input type="number" id="vec2py" step="0.01">
+        <label for="vec2pz">Vector2 Z:</label>
+        <input type="number" id="vec2pz" step="0.01">
+        <button onclick="calcularProductoPunto()">Calcular</button>
+        <div class="result" id="resultadoProductoPunto"></div>
+        <button onclick="toggleFormulas('formulasProductoPunto')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasProductoPunto">
+            <p>Producto punto = Σ (vector1[i] × vector2[i])</p>
+        </div>
+    </div>
+
+    <div class="section" id="angulovector">
+        <h2>Ángulo Vector</h2>
+        <label for="vec1ax">Vector1 X:</label>
+        <input type="number" id="vec1ax" step="0.01">
+        <label for="vec1ay">Vector1 Y:</label>
+        <input type="number" id="vec1ay" step="0.01">
+        <label for="vec1az">Vector1 Z:</label>
+        <input type="number" id="vec1az" step="0.01">
+        <label for="vec2ax">Vector2 X:</label>
+        <input type="number" id="vec2ax" step="0.01">
+        <label for="vec2ay">Vector2 Y:</label>
+        <input type="number" id="vec2ay" step="0.01">
+        <label for="vec2az">Vector2 Z:</label>
+        <input type="number" id="vec2az" step="0.01">
+        <label for="vec3ax">Vector3 X:</label>
+        <input type="number" id="vec3ax" step="0.01">
+        <label for="vec3ay">Vector3 Y:</label>
+        <input type="number" id="vec3ay" step="0.01">
+        <label for="vec3az">Vector3 Z:</label>
+        <input type="number" id="vec3az" step="0.01">
+        <button onclick="calcularAnguloVector()">Calcular</button>
+        <div class="result" id="resultadoAnguloVector"></div>
+        <button onclick="toggleFormulas('formulasAnguloVector')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasAnguloVector">
+            <p>Calcula productos punto y ortogonales, luego ángulo entre ortogonales.</p>
+        </div>
+    </div>
+
+    <div class="section" id="puntaangulor">
+        <h2>Punta Ángulo R</h2>
+        <img src="../atribucion/piston rol.png" alt="Punta Ángulo R" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="diametroPun">Diámetro:</label>
+        <input type="number" id="diametroPun" step="0.01">
+        <label for="tuboPun">Tubo:</label>
+        <input type="number" id="tuboPun" step="0.01">
+        <label for="anguloPun">Ángulo:</label>
+        <input type="number" id="anguloPun" step="0.01">
+        <label for="alturaCentroPun">Altura Centro:</label>
+        <input type="number" id="alturaCentroPun" step="0.01">
+        <label for="factorkPun">Factor K:</label>
+        <input type="number" id="factorkPun" step="0.01">
+        <label for="sobraPun">Sobra:</label>
+        <input type="number" id="sobraPun" step="0.01">
+        <button onclick="calcularPuntaAngulor()">Calcular</button>
+        <div class="result" id="resultadoPuntaAngulor"></div>
+        <button onclick="toggleFormulas('formulasPuntaAngulor')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasPuntaAngulor">
+            <p>Marca centro = (diámetro[0] + tubo[0] × (0 - diámetro[1]) + factor K × 2 × tubo[0]) × (180 - ángulo) × π / 360</p>
+            <p>Altura rest = altura centro[0] - (diámetro[0] + tubo[0] × (altura centro[1] - diámetro[1])) × sin((180 - ángulo) × π / (4 × 180))²</p>
+            <p>Ancho rest: Compleja fórmula trigonométrica para ancho restante.</p>
+            <p>Desarrollo = sobra + (diámetro[0] + tubo[0] × (1 - diámetro[1])) × (180 - ángulo) × π / 360 + 2 × altura rest / cos(ángulo × π / (2 × 180))</p>
+            <p>Marca recto = (desarrollo - marca centro) / 2</p>
+        </div>
+    </div>
+
+    <div class="section" id="pasamano">
+        <h2>Pasamano</h2>
+        <img src="../atribucion/pasamano.png" alt="Pasamano" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="rodilloPas">Rodillo:</label>
+        <input type="number" id="rodilloPas" step="0.01">
+        <label for="tuboPas">Tubo:</label>
+        <input type="number" id="tuboPas" step="0.01">
+        <label for="largoPas">Largo:</label>
+        <input type="number" id="largoPas" step="0.01">
+        <label for="pata1Pas">Pata1:</label>
+        <input type="number" id="pata1Pas" step="0.01">
+        <label for="angulo1Pas">Ángulo1:</label>
+        <input type="number" id="angulo1Pas" step="0.01">
+        <label for="pata2Pas">Pata2:</label>
+        <input type="number" id="pata2Pas" step="0.01">
+        <label for="angulo2Pas">Ángulo2:</label>
+        <input type="number" id="angulo2Pas" step="0.01">
+        <label for="factorkPas">Factor K:</label>
+        <input type="number" id="factorkPas" step="0.01">
+        <button onclick="calcularPasamano()">Calcular</button>
+        <div class="result" id="resultadoPasamano"></div>
+        <button onclick="toggleFormulas('formulasPasamano')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasPasamano">
+            <p>TuboV1/V2: Similar a baranda.</p>
+            <p>Llama a codoWithJSLI dos veces.</p>
+            <p>Marca pata1/2: Cálculos de marcas basados en patas y ángulos.</p>
+            <p>Marca largo: Marca longitudinal.</p>
+            <p>Desarrollo: Suma de marcas.</p>
+        </div>
+    </div>
+
+    <div class="section" id="parchoque">
+        <h2>Parchoque</h2>
+        <img src="../atribucion/parchoque.png" alt="Parchoque" style="max-width:100%; height:auto; margin-bottom:20px;">
+        <label for="anguloPar">Ángulo:</label>
+        <input type="number" id="anguloPar" step="0.01">
+        <label for="tuboPar">Tubo:</label>
+        <input type="number" id="tuboPar" step="0.01">
+        <label for="rodilloPar">Rodillo:</label>
+        <input type="number" id="rodilloPar" step="0.01">
+        <label for="anchoPar">Ancho:</label>
+        <input type="number" id="anchoPar" step="0.01">
+        <label for="alturaPar">Altura:</label>
+        <input type="number" id="alturaPar" step="0.01">
+        <label for="factorkPar">Factor K:</label>
+        <input type="number" id="factorkPar" step="0.01">
+        <button onclick="calcularParchoque()">Calcular</button>
+        <div class="result" id="resultadoParchoque"></div>
+        <button onclick="toggleFormulas('formulasParchoque')">Mostrar Fórmulas</button>
+        <div class="formulas" id="formulasParchoque">
+            <p>Similar a baranda, con fórmulas equivalentes para desarrollo, marcas y descuento.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleFormulas(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        function calcularCodo() {
+            const angulo = parseFloat(document.getElementById('angulo').value);
+            const tubo = parseFloat(document.getElementById('tubo').value);
+            const radio = parseFloat(document.getElementById('radio').value);
+            const factork = parseFloat(document.getElementById('factork').value);
+            const eje = parseFloat(document.getElementById('eje').value);
+            const result = window.codoWithJSLI(angulo, tubo, radio, factork, eje);
+            document.getElementById('resultadoCodo').innerHTML = 
+                `Descuento: ${result[0].toFixed(2)}<br>
+                 Desarrollo: ${result[1].toFixed(2)}<br>
+                 Tangente: ${result[2].toFixed(2)}<br>
+                 Biset: ${result[3].toFixed(2)}`;
+        }
+
+        function calcularEje() {
+            const entrada = [parseFloat(document.getElementById('entrada0').value), parseFloat(document.getElementById('entrada1').value)];
+            const salida = [parseFloat(document.getElementById('salida0').value), parseFloat(document.getElementById('salida1').value)];
+            const result = window.ejeWithJSLI(entrada, salida);
+            document.getElementById('resultadoEje').innerHTML = 
+                `Resultado 1: ${result[0].toFixed(2)}<br>
+                 Resultado 2: ${result[1].toFixed(2)}`;
+        }
+
+        function calcularContravuelco() {
+            const angulo = parseFloat(document.getElementById('anguloContra').value);
+            const marcacentro = parseFloat(document.getElementById('marcacentro').value);
+            const rodillo = parseFloat(document.getElementById('rodilloContra').value);
+            const largo = parseFloat(document.getElementById('largoContra').value);
+            const altura = parseFloat(document.getElementById('alturaContra').value);
+            const tubo = parseFloat(document.getElementById('tuboContra').value);
+            const ejein = parseFloat(document.getElementById('ejein').value);
+            const result = window.contravuelcoWithJSLI(angulo, marcacentro, rodillo, largo, altura, tubo, ejein);
+            document.getElementById('resultadoContravuelco').innerHTML = 
+                `Ancho: ${result[0].toFixed(2)}<br>
+                 Ángulo Patas: ${result[1].toFixed(2)}<br>
+                 Lado Pendiente: ${result[2].toFixed(2)}<br>
+                 Lado Centro: ${result[3].toFixed(2)}<br>
+                 Marca Pendiente: ${result[4].toFixed(2)}<br>
+                 Centro: ${result[5].toFixed(2)}`;
+        }
+
+        function calcularAngulo() {
+            const vec1 = [parseFloat(document.getElementById('vec1x').value), parseFloat(document.getElementById('vec1y').value), parseFloat(document.getElementById('vec1z').value)];
+            const vec2 = [parseFloat(document.getElementById('vec2x').value), parseFloat(document.getElementById('vec2y').value), parseFloat(document.getElementById('vec2z').value)];
+            const result = window.anguloWithJSLI(vec1, vec2);
+            document.getElementById('resultadoAngulo').innerHTML = 
+                `Ángulo: ${result.toFixed(2)}°`;
+        }
+
+        function calcularBaranda() {
+            const angulo = parseFloat(document.getElementById('anguloBar').value);
+            const tubo = [parseFloat(document.getElementById('tuboBar').value), 1]; // assuming default for array
+            const rodillo = [parseFloat(document.getElementById('rodilloBar').value), 0];
+            const ancho = [parseFloat(document.getElementById('anchoBar').value), 0];
+            const altura = [parseFloat(document.getElementById('alturaBar').value), 0];
+            const factork = parseFloat(document.getElementById('factorkBar').value);
+            const result = window.barandaWithJSLI(angulo, tubo, rodillo, ancho, altura, factork);
+            document.getElementById('resultadoBaranda').innerHTML = 
+                `Desarrollo: ${result[0].toFixed(2)}<br>
+                 Marca AL: ${result[1].toFixed(2)}<br>
+                 Marca CT: ${result[2].toFixed(2)}<br>
+                 Descuento: ${result[3].toFixed(2)}<br>
+                 Altura EJE: ${result[4].toFixed(2)}`;
+        }
+
+        function calcularProductoPunto() {
+            const vec1 = [parseFloat(document.getElementById('vec1px').value), parseFloat(document.getElementById('vec1py').value), parseFloat(document.getElementById('vec1pz').value)];
+            const vec2 = [parseFloat(document.getElementById('vec2px').value), parseFloat(document.getElementById('vec2py').value), parseFloat(document.getElementById('vec2pz').value)];
+            const result = window.productopuntoWithJSLI(vec1, vec2);
+            document.getElementById('resultadoProductoPunto').innerHTML = 
+                `Producto Punto: ${result.toFixed(2)}`;
+        }
+
+        function calcularAnguloVector() {
+            const vec1 = [parseFloat(document.getElementById('vec1ax').value), parseFloat(document.getElementById('vec1ay').value), parseFloat(document.getElementById('vec1az').value)];
+            const vec2 = [parseFloat(document.getElementById('vec2ax').value), parseFloat(document.getElementById('vec2ay').value), parseFloat(document.getElementById('vec2az').value)];
+            const vec3 = [parseFloat(document.getElementById('vec3ax').value), parseFloat(document.getElementById('vec3ay').value), parseFloat(document.getElementById('vec3az').value)];
+            const result = window.angulovectorWithJSLI(vec1, vec2, vec3);
+            document.getElementById('resultadoAnguloVector').innerHTML = 
+                `Ángulo: ${result.toFixed(2)}°`;
+        }
+
+        function calcularPuntaAngulor() {
+            const diametro = [parseFloat(document.getElementById('diametroPun').value), 0]; // assuming array
+            const tubo = [parseFloat(document.getElementById('tuboPun').value), 1];
+            const angulo = parseFloat(document.getElementById('anguloPun').value);
+            const alturaCentro = [parseFloat(document.getElementById('alturaCentroPun').value), 0];
+            const factork = parseFloat(document.getElementById('factorkPun').value);
+            const sobra = parseFloat(document.getElementById('sobraPun').value);
+            const result = window.puntaangulorWithJSLI(diametro, tubo, angulo, alturaCentro, factork, sobra);
+            document.getElementById('resultadoPuntaAngulor').innerHTML = 
+                `Desarrollo: ${result[0].toFixed(2)}<br>
+                 Marca Centro: ${result[1].toFixed(2)}<br>
+                 Marca Recto: ${result[2].toFixed(2)}<br>
+                 Ancho Rest: ${result[3].toFixed(2)}<br>
+                 Altura Rest: ${result[4].toFixed(2)}<br>
+                 Borr: ${result[5].toFixed(2)}`;
+        }
+
+        function calcularPasamano() {
+            const rodillo = [parseFloat(document.getElementById('rodilloPas').value), 0];
+            const tubo = [parseFloat(document.getElementById('tuboPas').value), 1];
+            const largo = [parseFloat(document.getElementById('largoPas').value), 0];
+            const pata1 = [parseFloat(document.getElementById('pata1Pas').value), 0];
+            const angulo1 = parseFloat(document.getElementById('angulo1Pas').value);
+            const pata2 = [parseFloat(document.getElementById('pata2Pas').value), 0];
+            const angulo2 = parseFloat(document.getElementById('angulo2Pas').value);
+            const factork = parseFloat(document.getElementById('factorkPas').value);
+            const result = window.pasamanoWithJSLI(rodillo, tubo, largo, pata1, angulo1, pata2, angulo2, factork);
+            document.getElementById('resultadoPasamano').innerHTML = 
+                `Desarrollo: ${result[0].toFixed(2)}<br>
+                 Marca Pata1: ${result[1].toFixed(2)}<br>
+                 Marca Pata2: ${result[2].toFixed(2)}<br>
+                 Marca Largo: ${result[3].toFixed(2)}`;
+        }
+
+        function calcularParchoque() {
+            const angulo = parseFloat(document.getElementById('anguloPar').value);
+            const tubo = [parseFloat(document.getElementById('tuboPar').value), 1];
+            const rodillo = [parseFloat(document.getElementById('rodilloPar').value), 0];
+            const ancho = [parseFloat(document.getElementById('anchoPar').value), 0];
+            const altura = [parseFloat(document.getElementById('alturaPar').value), 0];
+            const factork = parseFloat(document.getElementById('factorkPar').value);
+            const result = window.parchoqueWithJSLI(angulo, tubo, rodillo, ancho, altura, factork);
+            document.getElementById('resultadoParchoque').innerHTML = 
+                `Desarrollo: ${result[0].toFixed(2)}<br>
+                 Marca AL: ${result[1].toFixed(2)}<br>
+                 Marca CT: ${result[2].toFixed(2)}<br>
+                 Descuento: ${result[3].toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
